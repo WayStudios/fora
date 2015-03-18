@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="${request.locale_name}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="fora">
+    <meta name="author" content="Xu [xw901103@gmail.com]">
+    <link rel="shortcut icon" href="${request.static_url('fora:static/pyramid-16x16.png')}">
+
+    <title>${fora_site_name} - Administration</title>
+
+    <!-- bootstrap core CSS -->
+    <link href="${request.static_url('fora:static/css/bootstrap.min.css')}" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link href="${request.static_url('fora:static/css/font-awesome.min.css')}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="${request.static_url('fora:static/css/bootstrap-themes/superhero.min.css')}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="${request.static_url('fora:static/js/html5shiv.min.js')}"></script>
+      <script src="${request.static_url('fora:static/js/respond.min.js')}"></script>
+    <![endif]-->
+
+    <style>
+      td {
+        vertical-align: middle !important;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 40px;
+        bottom: 0px;
+        left: 0px;
+        z-index: 1000;
+        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .nav-sidebar > .active > a,
+      .nav-sidebar > .active > a:hover,
+      .nav-sidebar > .active > a:focus {
+        color: #ebebeb;
+        background-color: #485563;
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar-top" class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!--<a class="navbar-brand" href="${request.application_url}/admin">${fora_site_name}</a>-->
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="${request.application_url}/">${fora_site_name}</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container-fluid" style="margin-top: 40px;">
+      <div class="row">
+        <div class="col-xs-1 col-sm-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> Topics</a></li>
+            <li><a href="#threads" aria-controls="threads" role="tab" data-toggle="tab"><i class="fa fa-list-ul"></i> Threads</a></li>
+            <li><a href="#forums" aria-controls="forums" role="tab" data-toggle="tab"><i class="fa fa-users"></i> Forums</a></li>
+            <li><a href="#users" aria-controls="users" role="tab" data-toggle="tab"><i class="fa fa-user"></i> Users</a></li>
+            <li><a href="#site" aria-controls="site" role="tab" data-toggle="tab"><i class="fa fa-cogs"></i> Site</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-11 col-xs-offset-1 col-sm-10 col-sm-offset-2 main">
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="dashboard">
+              <h2 class="sub-header">Dashboard</h2>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="topics">
+              <h2 class="sub-header">Topics</h2>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>uuid</th>
+                      <th>author</th>
+                      <th>subject</th>
+                      <th>actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>00000000-0000-4000-0000-000000000000</td>
+                      <td>test</td>
+                      <td>hello</td>
+                      <td><a href="#" type="button" class="btn btn-default">edit</a><a href="#" type="button" class="btn btn-default">delete</a></td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="threads">
+              <h2 class="sub-header">Threads</h2>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>uuid</th>
+                      <th>author</th>
+                      <th>subject</th>
+                      <th>actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>00000000-0000-4000-0000-000000000000</td>
+                      <td>test</td>
+                      <td>hello</td>
+                      <td><a href="#" type="button" class="btn btn-default">edit</a><a href="#" type="button" class="btn btn-default">delete</a></td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="forums">
+              <h2 class="sub-header">Forums</h2>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>title</th>
+                      <th>actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>test</td>
+                      <td><a href="#" type="button" class="btn btn-default">edit</a><a href="#" type="button" class="btn btn-default">delete</a></td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="users">
+              <h2 class="sub-header">Users</h2>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>e-mail</th>
+                      <th>username</th>
+                      <th>actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>test@example.com</td>
+                      <td>test</td>
+                      <td><a href="#" type="button" class="btn btn-default">edit</a><a href="#" type="button" class="btn btn-default">delete</a></td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="site">
+              <h2 class="sub-header">Site</h2>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">fora 2015 created by Xu</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="${request.static_url('fora:static/js/jquery.min.js')}"></script>
+    <script src="${request.static_url('fora:static/js/bootstrap.min.js')}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="${request.static_url('fora:static/js/ie10-viewport-bug-workaround.js')}"></script>
+
+    <script src="${request.static_url('fora:static/js/holder.min.js')}"></script>
+
+    <script src="${request.static_url('fora:static/js/fora.admin.js')}"></script>
+
+    <!-- Bootlint -->
+    <script>
+      javascript:(function(){var s=document.createElement("script");s.onload=function(){bootlint.showLintReportForCurrentDocument([]);};s.src="${request.static_url('fora:static/js/bootlint.min.js')}";document.body.appendChild(s)})();
+    </script>
+  </body>
+</html>

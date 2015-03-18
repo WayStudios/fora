@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="${request.locale_name}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="fora">
+    <meta name="author" content="Xu [xw901103@gmail.com]">
+    <link rel="shortcut icon" href="${request.static_url('fora:static/pyramid-16x16.png')}">
+
+    <title>${fora_site_name} - ${identity}</title>
+
+    <!-- bootstrap core CSS -->
+    <link href="${request.static_url('fora:static/css/bootstrap.min.css')}" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link href="${request.static_url('fora:static/css/font-awesome.min.css')}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="${request.static_url('fora:static/css/bootstrap-themes/superhero.min.css')}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="${request.static_url('fora:static/js/html5shiv.min.js')}"></script>
+      <script src="${request.static_url('fora:static/js/respond.min.js')}"></script>
+    <![endif]-->
+
+    <style>
+      #container-breadcrumb,
+      #container-panel-page {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      #breadcrumb {
+        margin-top: 61px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar-top" class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="${request.application_url}/">${fora_site_name}</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="${request.application_url}/">Home</a></li>
+            <li><a href="${request.application_url}/page/about">About</a></li>
+            <li><a href="${request.application_url}/page/contact">Contact</a></li>
+          </ul>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" data-toggle="modal" data-target="#modal-login">Login</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div id="container-breadcrumb" class="container">
+      <ol id="breadcrumb" class="breadcrumb">
+        <li><a href="${request.application_url}/">Home</a></li>
+        <li class="active">${identity}</li>
+      </ol>
+    </div>
+
+    <div id="container-panel-page" class="container">
+
+      <div id="panel-page" class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">${identity}</div>
+
+        <div class="panel-body">
+          <p>Here lies the CMS page.</p>
+        </div>
+
+        <div class="panel-footer">Page content</div>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">fora 2015 created by Xu</p>
+      </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="modal-login-title" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+            <h4 class="modal-title" id="modal-login-title">Login</h4>
+          </div>
+          <div class="modal-body">
+            <form id="form-login">
+              <div class="form-group">
+                <input type="text" id="input-username" class="form-control" placeholder="Username" required autofocus>
+              </div>
+              <div class="form-group">
+                <input type="password" id="input-password" class="form-control" placeholder="Password" required>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Remember me
+                </label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a href="${request.application_url}/user/register" type="button" class="btn btn-success">Register</a>
+            <button type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="${request.static_url('fora:static/js/jquery.min.js')}"></script>
+    <script src="${request.static_url('fora:static/js/bootstrap.min.js')}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="${request.static_url('fora:static/js/ie10-viewport-bug-workaround.js')}"></script>
+
+    <script src="${request.static_url('fora:static/js/holder.min.js')}"></script>
+
+    <!-- Bootlint -->
+    <script>
+      javascript:(function(){var s=document.createElement("script");s.onload=function(){bootlint.showLintReportForCurrentDocument([]);};s.src="${request.static_url('fora:static/js/bootlint.min.js')}";document.body.appendChild(s)})();
+    </script>
+  </body>
+</html>
