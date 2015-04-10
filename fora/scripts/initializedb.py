@@ -15,13 +15,15 @@ from fora.core.dbsession import DBSession
 from fora.core.model import Model
 from fora.models.configuration import ConfigurationModel
 from fora.models.user import UserModel
+from fora.models.site import SiteModel
 from fora.models.forum import ForumModel
 from fora.models.topic import TopicModel
 from fora.models.thread import ThreadModel
-from fora.models.page import PageModel
+from fora.models.article import ArticleModel
 from fora.models.property import PropertyModel
 from fora.models.score import ScoreModel
 
+from fora.models.siteforum import SiteForumModel
 from fora.models.forumtopic import ForumTopicModel
 from fora.models.topicthread import TopicThreadModel
 
@@ -50,15 +52,18 @@ def main(argv=sys.argv):
         DBSession.add(conf_fora_site_name)
         user_fora_admin = UserModel(uuid = str(uuid.uuid4()), email = 'admin@fora.io', username = 'admin', password = 'admin', create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(user_fora_admin)
+        site_uuid = str(uuid.uuid4())
         forum_uuid = str(uuid.uuid4())
         thread_uuid = str(uuid.uuid4())
         topic_uuid = str(uuid.uuid4())
+        site_fora_demo = SiteModel(uuid = site_uuid, title = 'fora', create_date = datetime.utcnow(), update_date = datetime.utcnow())
+        DBSession.add(site_fora_demo)
         forum_fora_demo = ForumModel(uuid = forum_uuid, title = 'Demo', description = 'A demo forum', create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(forum_fora_demo)
-        page_fora_about = PageModel(uuid = str(uuid.uuid4()), title = 'About', description = 'CMS about page', content = 'This is the about page.', create_date = datetime.utcnow(), update_date = datetime.utcnow())
-        DBSession.add(page_fora_about)
-        page_fora_contact = PageModel(uuid = str(uuid.uuid4()), title = 'Contact', description = 'CMS contact page', content = 'This is the contact page.', create_date = datetime.utcnow(), update_date = datetime.utcnow())
-        DBSession.add(page_fora_contact)
+        article_fora_about = ArticleModel(uuid = str(uuid.uuid4()), title = 'About', description = 'CMS about page', content = 'This is the about page.', create_date = datetime.utcnow(), update_date = datetime.utcnow())
+        DBSession.add(article_fora_about)
+        article_fora_contact = ArticleModel(uuid = str(uuid.uuid4()), title = 'Contact', description = 'CMS contact page', content = 'This is the contact page.', create_date = datetime.utcnow(), update_date = datetime.utcnow())
+        DBSession.add(article_fora_contact)
         thread_fora_demo = ThreadModel(uuid = thread_uuid, parent = thread_uuid, author = 'anonymous', subject = 'demo', content = 'demo content', create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(thread_fora_demo)
         topic_fora_demo = TopicModel(uuid = topic_uuid, initial_thread = thread_uuid, create_date = datetime.utcnow(), update_date = datetime.utcnow())

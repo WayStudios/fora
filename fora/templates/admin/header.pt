@@ -1,0 +1,42 @@
+<nav id="navbar-top" class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!--<a class="navbar-brand" href="${request.application_url}/admin">${fora_site_name}</a>-->
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="${request.application_url}/">${fora_site_name}</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<div class="container-fluid" style="margin-top: 40px;">
+  <div class="row">
+    <div id="sidebar" class="col-xs-1 col-sm-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> Topics</a></li>
+        <li><a href="#threads" aria-controls="threads" role="tab" data-toggle="tab"><i class="fa fa-list-ul"></i> Threads</a></li>
+        <li><a href="#forums" aria-controls="forums" role="tab" data-toggle="tab"><i class="fa fa-users"></i> Forums</a></li>
+        <li><a href="#users" aria-controls="users" role="tab" data-toggle="tab"><i class="fa fa-user"></i> Users</a></li>
+        <li><a href="#site" aria-controls="site" role="tab" data-toggle="tab"><i class="fa fa-cogs"></i> Site</a></li>
+      </ul>
+    </div>
+    <div id="main" class="col-xs-11 col-xs-offset-1 col-sm-10 col-sm-offset-2 main">
+      <metal:content define-slot="content" />
+    </div>
+  </div>
+</div>

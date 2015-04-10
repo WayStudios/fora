@@ -16,7 +16,7 @@ $(document).ready(function() {
     contentType: 'application/json; charaset=utf-8',
     success: function(data) {
       if (data.status) {
-        var list = $("#container-panel-forums > #panel-forums > #list-forum");
+        var list = $("#panel-forums > #list-forum");
         for (var uuid in data.entries) {
           var entry = data.entries[uuid];
           var html = htmlListForumItem(entry);

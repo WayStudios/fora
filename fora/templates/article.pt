@@ -1,0 +1,21 @@
+<metal:main use-macro="load: layout.pt">
+  <metal:content fill-slot="content">
+    <!-- Breadcrumb -->
+    <div id="container-breadcrumb" class="container">
+      <ol id="breadcrumb" class="breadcrumb">
+        <li><a href="${request.application_url}/">Home</a></li>
+        <li class="active">${identity}</li>
+      </ol>
+    </div>
+    <div id="panel-page" class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">${identity}</div>
+
+      <div class="panel-body">
+        <p>Here lies the CMS page.</p>
+      </div>
+
+      <div class="panel-footer">Page content</div>
+    </div>
+  </metal:content>
+</metal:main>

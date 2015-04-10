@@ -1,5 +1,5 @@
 # fora
-# class PageModel
+# class ArticleModel
 # Xu [xw901103@gmail.com] Copyright 2015
 from fora.core.model import Model
 
@@ -10,8 +10,8 @@ from sqlalchemy import (
     DateTime
 )
 
-class PageModel(Model):
-    __tablename__ = 'pages'
+class ArticleModel(Model):
+    __tablename__ = 'articles'
     id = Column(Integer, primary_key = True, autoincrement = True)
     uuid = Column(String, unique = True)
     title = Column(String)

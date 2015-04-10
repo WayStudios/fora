@@ -6,7 +6,9 @@ from pyramid.renderers import render_to_response
 from fora.core.configuration import Configuration
 
 class View(object):
+    title = None
     request = None
+    exception = None
     json = None
     template = None
     value = {}
@@ -27,6 +29,10 @@ class View(object):
             self.value['fora_site_name'] = self.configurations['fora_site_name'].model.value
         else:
             self.value['fora_site_name'] = 'fora'
+        if not self.title:
+            self.value['title'] = self.value['fora_site_name']
+        else:
+            self.value['title'] = self.value['fora_site_name'] + ' - ' + self.title
     def do_action(self, action):
         if action in self.actions:
             self.actions[action]()
@@ -35,6 +41,8 @@ class View(object):
             self.do_action(self.request.GET['action'])
         else:
             self.prepare_template()
+            if self.exception:
+                raise self.exception
             self.response = render_to_response(renderer_name = self.template,
                                                value = self.value,
                                                request = self.request)

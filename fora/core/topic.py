@@ -46,8 +46,8 @@ class Topic(object):
         results = DBSession.query(ThreadModel).filter(ThreadModel.uuid == TopicThreadModel.thread_uuid, TopicThreadModel.topic_uuid == self.model.uuid).order_by(ASC(order_asc)).all()
         objs = {}
         for result in results:
-            objs[result.uuid] = Thread()
-            objs[result.uuid].model = result
+            objs[result.id] = Thread()
+            objs[result.id].model = result
         return objs
     def create_thread(self, parent = None, author = '', subject = '', content = ''):
         thread = Thread.create_thread(parent = parent, author = author, subject = subject, content = content)

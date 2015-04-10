@@ -15,9 +15,9 @@ $(document).ready(function() {
     contentType: 'application/json; charaset=utf-8',
     success: function(data) {
       if (data.status) {
-        var list = $("#container-panel-topics > #panel-topics > #list-topic");
-        for (var uuid in data.entries) {
-          var entry = data.entries[uuid];
+        var list = $("#panel-topics > #list-topic");
+        for (var id in data.entries) {
+          var entry = data.entries[id];
           var html = htmlListTopicItem(entry);
           list.append(html);
         }

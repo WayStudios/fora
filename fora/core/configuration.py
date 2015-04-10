@@ -11,6 +11,8 @@ class Configuration(object):
     model = None
     def __init__(self):
         self.model = None
+    def id(self):
+        return self.model.id
     def uuid(self, new_uuid = None):
         if not new_uuid:
             return self.model.uuid

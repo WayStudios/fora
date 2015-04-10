@@ -14,6 +14,8 @@ class Thread(object):
     model = None
     def __init__(self, model = None):
         self.model = model
+    def id(self):
+        return self.model.id
     def uuid(self, new_uuid = None):
         if not new_uuid:
             return self.model.uuid
@@ -45,6 +47,8 @@ class Thread(object):
     @staticmethod
     def get_thread_by_uuid(uuid):
         result = DBSession.query(ThreadModel).filter(ThreadModel.uuid == uuid).first()
+        if not result:
+            return None
         obj = Thread()
         obj.model = result
         return obj

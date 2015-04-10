@@ -7,6 +7,11 @@ from fora.core.thread import Thread
 
 from pyramid.renderers import render_to_response
 
+from pyramid.httpexceptions import (
+    HTTPNotFound,
+    HTTPForbidden
+)
+
 class ForumView(View):
     """ This class contains the forum view of fora.
     """
@@ -18,16 +23,19 @@ class ForumView(View):
                                             'create_topic': self.create_topic,
                                             'delete_topic': self.delete_topic
                                         })
+        self.title = 'Forum'
         self.value['identity'] = request.matchdict['identity']
     def prepare_template(self):
-        super(ForumView, self).prepare_template()
-        self.value['forum'] = {
-            'title': '',
-            'description': ''
-        }
         forum = Forum.get_forum_by_uuid(self.value['identity'])
-        self.value['forum']['title'] = forum.title()
-        self.value['forum']['description'] = forum.description()
+        if not forum:
+            self.exception = HTTPNotFound()
+        else:
+            self.title = 'Forum ' + forum.title()
+            self.value['forum'] = {
+                'title': forum.title(),
+                'description': forum.description()
+            }
+        super(ForumView, self).prepare_template()
     def retrieve_topics(self):
         value = {
             'status': True,
@@ -35,10 +43,10 @@ class ForumView(View):
         }
         forum = Forum.get_forum_by_uuid(uuid = self.value['identity'])
         topics = forum.get_topics()
-        for uuid in topics:
-            thread = Thread.get_thread_by_uuid(uuid = topics[uuid].initial_thread())
-            value['entries'][uuid] = {
-                'uuid': uuid,
+        for id in topics:
+            thread = Thread.get_thread_by_uuid(uuid = topics[id].initial_thread())
+            value['entries'][id] = {
+                'uuid': topics[id].uuid(),
                 'initial_thread': {
                     'uuid': thread.uuid(),
                     'author': thread.author(),

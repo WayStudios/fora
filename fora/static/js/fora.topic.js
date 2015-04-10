@@ -1,5 +1,6 @@
 function htmlListThreadItem(entry) {
-  var html = "<a href='/thread/" + entry.uuid + "' class='list-group-item'>";
+  var html = "<div href='/thread/" + entry.uuid + "' class='list-group-item'>";
+
   html += "<div class='row'>";
   html += "<div class='col-xs-3 col-sm-2 col-md-1'>";
   html += "<img class='img-responsive' data-src='holder.js/168x168/auto/social/font:FontAwesome/text:&#xF007;/size:64' alt='Avatar'>";
@@ -12,14 +13,14 @@ function htmlListThreadItem(entry) {
 
   html += "<div class='row'>";
   html += "<div class='col-xs-3 col-sm-2 col-md-1'>";
-  html += "<h5 style='text-align:center;'>" + entry.author + "</h5>";
+  html += "<h5 style='text-align:center;'><a href='/user/" + entry.author + "'>" + entry.author + "</a></h5>";
   html += "</div>";
   html += "<div class='col-xs-9 col-sm-10 col-md-11'>";
   html += "<h6 style='text-align:right;'> created: " + entry.create_date + " updated: " + entry.update_date + "</h6>";
   html += "</div>";
   html += "</div>";
 
-  html += "</a>";
+  html += "</div>";
   return html;
 }
 
@@ -32,7 +33,7 @@ $(document).ready(function() {
     contentType: 'application/json; charaset=utf-8',
     success: function(data) {
       if (data.status) {
-        var list = $("#container-panel-threads > #panel-threads > #list-thread");
+        var list = $("#panel-threads > #list-thread");
         for (var uuid in data.entries) {
           var entry = data.entries[uuid];
           var html = htmlListThreadItem(entry);
@@ -58,7 +59,7 @@ $(document).ready(function() {
       contentType: "application/json; charaset=utf-8",
       success: function(data) {
         if (data.status) {
-          
+
         }
       }
     });

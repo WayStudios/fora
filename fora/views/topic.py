@@ -6,6 +6,11 @@ from fora.core.topic import Topic
 
 from pyramid.renderers import render_to_response
 
+from pyramid.httpexceptions import (
+    HTTPNotFound,
+    HTTPForbidden
+)
+
 class TopicView(View):
     """ This class contains the topic view of fora.
     """
@@ -18,14 +23,18 @@ class TopicView(View):
                                             'edit_thread': self.edit_thread,
                                             'delete_thread': self.delete_thread
                                         })
+        self.title = 'Topic'
         self.value['identity'] = request.matchdict['identity']
     def prepare_template(self):
-        super(TopicView, self).prepare_template()
-        self.value['topic'] = {
-            'subject': ''
-        }
         topic = Topic.get_topic_by_uuid(uuid = self.value['identity'])
-        self.value['topic']['subject'] = topic.subject()
+        if not topic:
+            self.exception = HTTPNotFound()
+        else:
+            self.title = 'Topic ' + topic.subject()
+            self.value['topic'] = {
+                'subject': topic.subject()
+            }
+        super(TopicView, self).prepare_template()
     def retrieve_threads(self):
         value = {
             'status': True,
@@ -36,6 +45,7 @@ class TopicView(View):
         for uuid in threads:
             thread = threads[uuid]
             value['entries'][uuid] = {
+                'id': thread.id(),
                 'uuid': thread.uuid(),
                 'author': thread.author(),
                 'subject': thread.subject(),

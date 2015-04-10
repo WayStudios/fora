@@ -6,6 +6,11 @@ from fora.core.thread import Thread
 
 from pyramid.renderers import render_to_response
 
+from pyramid.httpexceptions import (
+    HTTPNotFound,
+    HTTPForbidden
+)
+
 class ThreadView(View):
     """ This class contains the thread view of fora.
     """
@@ -14,19 +19,19 @@ class ThreadView(View):
                                         template = 'fora:templates/thread.pt',
                                         actions = {
                                         })
+        self.title = 'Thread'
         self.value['identity'] = request.matchdict['identity']
     def prepare_template(self):
-        super(ThreadView, self).prepare_template()
-        self.value['thread'] = {
-            'author': '',
-            'subject': '',
-            'content': '',
-            'create_date': '',
-            'update_date': ''
-        }
         thread = Thread.get_thread_by_uuid(uuid = self.value['identity'])
-        self.value['thread']['author'] = thread.author()
-        self.value['thread']['subject'] = thread.subject()
-        self.value['thread']['content'] = thread.content()
-        self.value['thread']['create_date'] = str(thread.create_date())
-        self.value['thread']['update_date'] = str(thread.update_date())
+        if not thread:
+            self.exception = HTTPNotFound()
+        else:
+            self.title = 'Thread ' + thread.subject()
+            self.value['thread'] = {
+                'author': thread.author(),
+                'subject': thread.subject(),
+                'content': thread.content(),
+                'create_date': str(thread.create_date()),
+                'update_date': str(thread.update_date())
+            }
+        super(ThreadView, self).prepare_template()

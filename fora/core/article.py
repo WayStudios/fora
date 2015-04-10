@@ -1,13 +1,19 @@
 # fora
-# class Page
+# class Article
 # Xu [xw901103@gmail.com] Copyright 2015
 
-class Page(object):
-    """ This class contains core functionality of fora page manipulation.
+class Article(object):
+    """ This class contains core functionality of fora article manipulation.
     """
     model = None
     def __init__(self):
         self.model = None
+    def id(self):
+        return self.model.id
+    def uuid(self, new_uuid = None):
+        if not new_uuid:
+            return self.model.uuid
+        self.model.uuid = new_uuid
     def title(self, new_title = None):
         if not new_title:
             return self.model.title
@@ -29,8 +35,10 @@ class Page(object):
             return self.model.update_date
         self.model.update_date = new_update_date
     @staticmethod
-    def get_page_by_uuid(uuid):
-        result = DBSession.query(PageModel).filter(PageModel.uuid == uuid).first()
-        obj = Page()
+    def get_article_by_uuid(uuid):
+        result = DBSession.query(ArticleModel).filter(ArticleModel.uuid == uuid).first()
+        if not result:
+            return None
+        obj = Article()
         obj.model = result
         return obj

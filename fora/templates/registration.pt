@@ -1,0 +1,46 @@
+<metal:main use-macro="load: layout.pt">
+  <metal:style fill-slot="style">
+  </metal:style>
+  <metal:content fill-slot="content">
+    <!-- Breadcrumb -->
+    <div id="container-breadcrumb" class="container">
+      <ol id="breadcrumb" class="breadcrumb">
+        <li><a href="${request.application_url}/">Home</a></li>
+        <li class="active">User Registration</li>
+      </ol>
+    </div>
+
+    <div id="panel-user-registration" class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">User Registration</div>
+
+      <div class="panel-body">
+        <form id="form-user-registration">
+          <div class="form-group">
+            <input type="email" class="form-control" id="input-email" placeholder="Email address" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="input-username" placeholder="Username" required>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" id="input-password" placeholder="Password" required>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" id="input-confirm-password" placeholder="Confirm password" required>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="checkbox-accept-policies" required> I have accepted the privacy and useage policies.
+            </label>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel-footer">
+        <button id="submit-form-user-registration" type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+  </metal:extra>
+</metal:main>

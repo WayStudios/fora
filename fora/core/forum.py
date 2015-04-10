@@ -17,6 +17,8 @@ class Forum(object):
     model = None
     def __init__(self):
         self.model = None
+    def id(self):
+        return self.model.id
     def uuid(self, new_uuid = None):
         if not new_uuid:
             return self.model.uuid
@@ -53,12 +55,14 @@ class Forum(object):
         results = DBSession.query(TopicModel).filter(TopicModel.uuid == ForumTopicModel.topic_uuid, ForumTopicModel.forum_uuid == self.model.uuid).all()
         objs = {}
         for result in results:
-            objs[result.uuid] = Topic()
-            objs[result.uuid].model = result
+            objs[result.id] = Topic()
+            objs[result.id].model = result
         return objs
     @staticmethod
     def get_forum_by_uuid(uuid):
         result = DBSession.query(ForumModel).filter(ForumModel.uuid == uuid).first()
+        if not result:
+            return None
         obj = Forum()
         obj.model = result
         return obj
@@ -67,6 +71,6 @@ class Forum(object):
         results = DBSession.query(ForumModel).all()
         objs = {}
         for result in results:
-            objs[result.uuid] = Forum()
-            objs[result.uuid].model = result
+            objs[result.id] = Forum()
+            objs[result.id].model = result
         return objs
