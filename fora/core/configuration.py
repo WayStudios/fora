@@ -45,3 +45,11 @@ class Configuration(object):
             obj.model = result
             return obj
         return None
+    @staticmethod
+    def get_configurations():
+        results = DBSession.query(ConfigurationModel).all()
+        objs = {}
+        for result in results:
+            objs[result.id] = Configuration()
+            objs[result.id].model = result
+        return objs

@@ -6,6 +6,7 @@ from fora.core.model import Model
 from sqlalchemy import (
     Column,
     Integer,
+    Boolean,
     String,
     DateTime
 )
@@ -17,5 +18,6 @@ class ArticleModel(Model):
     title = Column(String)
     description = Column(String)
     content = Column(String)
+    is_active = Column(Boolean)
     create_date = Column(DateTime)
     update_date = Column(DateTime)

@@ -13,6 +13,8 @@ class User(object):
     model = None
     def __init__(self):
         self.model = None
+    def id(self):
+        return self.model.id
     def uuid(self, new_uuid = None):
         if not new_uuid:
             return self.model.uuid
@@ -29,6 +31,14 @@ class User(object):
         if not new_password:
             return self.model.password
         self.model.password = new_password
+    def is_active(self, new_is_active):
+        if not new_is_active:
+            return self.model.is_active
+        self.model.is_active = new_is_active
+    def is_deleted(self, new_is_deleted):
+        if not new_is_deleted:
+            return self.model.is_deleted
+        self.model.is_deleted = new_is_deleted
     def create_date(self, new_create_date = None):
         if not new_create_date:
             return self.model.create_date
@@ -50,8 +60,16 @@ class User(object):
         obj.model = result
         return obj
     @staticmethod
-    def create_user(email, username, password):
-        result = UserModel(uuid = str(uuid.uuid4()), email = email, username = username, password = password, create_date = datetime.utcnow(), update_date = datetime.utcnow())
+    def get_users():
+        results = DBSession.query(UserModel).all()
+        objs = {}
+        for result in results:
+            objs[result.id] = User()
+            objs[result.id].model = result
+        return objs
+    @staticmethod
+    def create_user(email, username, password, is_active = True, is_deleted = False):
+        result = UserModel(uuid = str(uuid.uuid4()), email = email, username = username, password = password, is_active = is_active, is_deleted = is_deleted, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(result)
         obj = User()
         obj.model = result

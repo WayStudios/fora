@@ -23,11 +23,11 @@ class PortalView(View):
             'entries': {}
         }
         forums = Forum.get_forums()
-        for uuid in forums:
-            value['entries'][uuid] = {
-                'uuid': uuid,
-                'title': forums[uuid].title(),
-                'description': forums[uuid].description()
+        for id in forums:
+            value['entries'][id] = {
+                'uuid': forums[id].uuid(),
+                'title': forums[id].title(),
+                'description': forums[id].description()
             }
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,

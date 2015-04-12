@@ -1,6 +1,9 @@
 # fora
 # class Article
 # Xu [xw901103@gmail.com] Copyright 2015
+from fora.core.dbsession import DBSession
+
+from fora.models.article import ArticleModel
 
 class Article(object):
     """ This class contains core functionality of fora article manipulation.
@@ -26,6 +29,10 @@ class Article(object):
         if not new_content:
             return self.model.content
         self.model.content = new_content
+    def is_active(self, new_is_active = None):
+        if not new_is_active:
+            return self.model.is_active
+        self.model.is_active = new_is_active
     def create_date(self, new_create_date = None):
         if not new_create_date:
             return self.model.create_date
@@ -40,5 +47,20 @@ class Article(object):
         if not result:
             return None
         obj = Article()
+        obj.model = result
+        return obj
+    @staticmethod
+    def get_articles():
+        results = DBSession.query(ArticleModel).all()
+        objs = {}
+        for result in results:
+            objs[result.id] = Article()
+            objs[result.id].model = result
+        return objs
+    @staticmethod
+    def create_article(title = '', description = '', content = '', is_active = True):
+        result = ArticleModel(uuid = str(uuid.uuid4()), email = email, username = username, password = password, is_active = is_active, is_deleted = is_deleted, create_date = datetime.utcnow(), update_date = datetime.utcnow())
+        DBSession.add(result)
+        obj = User()
         obj.model = result
         return obj

@@ -31,7 +31,7 @@ class ThreadView(View):
                 'author': thread.author(),
                 'subject': thread.subject(),
                 'content': thread.content(),
-                'create_date': str(thread.create_date()),
-                'update_date': str(thread.update_date())
+                'create_date': thread.create_date().strftime('%Y-%m-%d %H:%M:%S'),
+                'update_date': thread.update_date().strftime('%Y-%m-%d %H:%M:%S')
             }
         super(ThreadView, self).prepare_template()

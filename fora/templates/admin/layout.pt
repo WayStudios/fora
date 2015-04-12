@@ -32,12 +32,15 @@
       top: 40px;
       bottom: 32px;
       left: 0px;
-      z-index: 1000;
       display: block;
       overflow-x: hidden;
       overflow-y: auto;
       padding-left: 0;
       padding-right: 0;
+    }
+    .nav-sidebar > .active > a {
+      color: #ebebeb;
+      background-color: #485563;
     }
     #main {
       position: fixed;

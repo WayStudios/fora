@@ -10,6 +10,6 @@ class AdminDashboardView(View):
     """
     def __init__(self, request):
         super(AdminDashboardView, self).__init__(request = request,
-                                                 template = None,
+                                                 template = 'fora:templates/admin/dashboard.pt',
                                                  actions = {
                                                  })

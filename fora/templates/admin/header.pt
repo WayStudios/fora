@@ -27,12 +27,14 @@
   <div class="row">
     <div id="sidebar" class="col-xs-1 col-sm-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li class="active"><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> Topics</a></li>
-        <li><a href="#threads" aria-controls="threads" role="tab" data-toggle="tab"><i class="fa fa-list-ul"></i> Threads</a></li>
-        <li><a href="#forums" aria-controls="forums" role="tab" data-toggle="tab"><i class="fa fa-users"></i> Forums</a></li>
-        <li><a href="#users" aria-controls="users" role="tab" data-toggle="tab"><i class="fa fa-user"></i> Users</a></li>
-        <li><a href="#site" aria-controls="site" role="tab" data-toggle="tab"><i class="fa fa-cogs"></i> Site</a></li>
+        <li id="nav-dashboard"><a href="${request.application_url}/admin/dashboard" aria-controls="dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li id="nav-topics"><a href="${request.application_url}/admin/topics" aria-controls="topics"><i class="fa fa-comments"></i> Topics</a></li>
+        <li id="nav-threads"><a href="${request.application_url}/admin/threads" aria-controls="threads"><i class="fa fa-list-ul"></i> Threads</a></li>
+        <li id="nav-forums"><a href="${request.application_url}/admin/forums" aria-controls="forums"><i class="fa fa-users"></i> Forums</a></li>
+        <li id="nav-articles"><a href="${request.application_url}/admin/articles" aria-controls="articles"><i class="fa fa-file-text"></i> Articles</a></li>
+        <li id="nav-users"><a href="${request.application_url}/admin/users" aria-controls="users"><i class="fa fa-user"></i> Users</a></li>
+        <li id="nav-sites"><a href="${request.application_url}/admin/sites" aria-controls="sites"><i class="fa fa-server"></i> Sites</a></li>
+        <li id="nav-configurations"><a href="${request.application_url}/admin/configurations" aria-controls="configurations"><i class="fa fa-cogs"></i> Configurations</a></li>
       </ul>
     </div>
     <div id="main" class="col-xs-11 col-xs-offset-1 col-sm-10 col-sm-offset-2 main">

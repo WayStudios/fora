@@ -1,0 +1,40 @@
+<metal:main use-macro="load: layout.pt">
+  <metal:content fill-slot="style">
+    <style>
+      td {
+        vertical-align: middle !important;
+      }
+    </style>
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="sub-header">Configurations</h2>
+    <div id="datatable-configurations" class="table-responsive"></div>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script src="${request.static_url('fora:static/js/jquery-ui.widget.min.js')}"></script>
+    <script src="${request.static_url('fora:static/js/fora.datatable.js')}"></script>
+    <script>
+      $(document).ready(function() {
+        $("#nav-configurations").addClass("active");
+        $("#datatable-configurations").datatable({
+          columns: [
+            "id",
+            "type",
+            "name",
+            "value"
+          ],
+          actions: {
+            view: false,
+            edit: true,
+            delete: true
+          },
+          uri: {
+            retrieveEntries: "?action=retrieve_configurations",
+            retrieveEntry: "?action=retrieve_configuration",
+            deleteEntry: "?action=delete_configuration"
+          }
+        });
+      });
+    </script>
+  </metal:extra>
+</metal:main>

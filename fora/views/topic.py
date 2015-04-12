@@ -50,8 +50,8 @@ class TopicView(View):
                 'author': thread.author(),
                 'subject': thread.subject(),
                 'content': thread.content(),
-                'create_date': str(thread.create_date()),
-                'update_date': str(thread.update_date())
+                'create_date': thread.create_date().strftime('%Y-%m-%d %H:%M:%S'),
+                'update_date': thread.update_date().strftime('%Y-%m-%d %H:%M:%S')
             }
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,

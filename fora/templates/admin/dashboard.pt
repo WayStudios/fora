@@ -2,9 +2,13 @@
   <metal:content fill-slot="style">
   </metal:content>
   <metal:content fill-slot="content">
-    <h2 class="sub-header">Welcome</h2>
-    <p>This is where you do your administration stuffs.</p>
+    <h2 class="sub-header">Dashboard</h2>
   </metal:content>
   <metal:extra fill-slot="extra">
+    <script>
+      $(document).ready(function() {
+        $("#nav-dashboard").addClass("active");
+      });
+    </script>
   </metal:extra>
 </metal:main>

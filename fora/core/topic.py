@@ -21,10 +21,17 @@ class Topic(object):
     model = None
     def __init__(self):
         self.model = None
+    def id(self):
+        return self.model.id
     def uuid(self, new_uuid = None):
         if not new_uuid:
             return self.model.uuid
         self.model.uuid = new_uuid
+    def author(self, new_author = None):
+        thread = Thread.get_thread_by_uuid(self.initial_thread())
+        if not new_author:
+            return thread.author()
+        thread.author(new_author)
     def subject(self, new_subject = None):
         thread = Thread.get_thread_by_uuid(self.initial_thread())
         if not new_subject:
@@ -34,6 +41,14 @@ class Topic(object):
         if not new_initial_thread:
             return self.model.initial_thread
         self.model.initial_thread = new_initial_thread
+    def is_archived(self, new_is_archived = None):
+        if not new_is_archived:
+            return self.model.is_archived
+        self.model.is_archived = new_is_archived
+    def is_deleted(self, new_is_deleted = None):
+        if not new_is_deleted:
+            return self.model.is_deleted
+        self.model.is_deleted = new_is_deleted
     def create_date(self, new_create_date = None):
         if not new_create_date:
             return self.model.create_date
@@ -61,11 +76,19 @@ class Topic(object):
         obj.model = result
         return obj
     @staticmethod
-    def create_topic(author, subject, content):
-        thread = Thread.create_thread(author = author, subject = subject, content = content)
+    def get_topics():
+        results = DBSession.query(TopicModel).all()
+        objs = {}
+        for result in results:
+            objs[result.id] = Topic()
+            objs[result.id].model = result
+        return objs
+    @staticmethod
+    def create_topic(author, subject, content, is_archived = False, is_deleted = False):
+        thread = Thread.create_thread(author = author, subject = subject, content = content, is_archived = is_archived, is_deleted = is_deleted)
         topic_uuid = str(uuid.uuid4())
         create_date = thread.model.create_date
-        result = TopicModel(uuid = topic_uuid, initial_thread = thread.model.uuid, create_date = create_date, update_date = create_date)
+        result = TopicModel(uuid = topic_uuid, initial_thread = thread.model.uuid, is_archived = is_archived, is_deleted = is_deleted, create_date = create_date, update_date = create_date)
         DBSession.add(result)
         topic = Topic()
         topic.model = result

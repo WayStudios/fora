@@ -1,6 +1,11 @@
 # fora
 # class Site
 # Xu [xw901103@gmail.com] Copyright 2015
+from fora.core.dbsession import (
+    DBSession
+)
+
+from fora.models.site import SiteModel
 
 class Site(object):
     """ This class contains core functionality of fora site manipulation.
@@ -18,6 +23,10 @@ class Site(object):
         if not new_title:
             return self.model.title
         self.model.title = new_title
+    def is_active(self, new_is_active = None):
+        if not new_is_active:
+            return self.model.is_active
+        self.model.is_active = new_is_active
     def create_date(self, new_create_date = None):
         if not new_create_date:
             return self.model.create_date
@@ -26,3 +35,11 @@ class Site(object):
         if not new_update_date:
             return self.model.update_date
         self.model.update_date = new_update_date
+    @staticmethod
+    def get_sites():
+        results = DBSession.query(SiteModel).all()
+        objs = {}
+        for result in results:
+            objs[result.id] = Site()
+            objs[result.id].model = result
+        return objs

@@ -6,6 +6,7 @@ from fora.core.model import Model
 from sqlalchemy import (
     Column,
     Integer,
+    Boolean,
     String,
     DateTime
 )
@@ -18,5 +19,7 @@ class ThreadModel(Model):
     author = Column(String)
     subject = Column(String)
     content = Column(String)
+    is_archived = Column(Boolean)
+    is_deleted = Column(Boolean)
     create_date = Column(DateTime)
     update_date = Column(DateTime)

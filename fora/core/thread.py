@@ -36,6 +36,14 @@ class Thread(object):
         if not new_content:
             return self.model.content
         self.model.content = new_content
+    def is_archived(self, new_is_archived = None):
+        if not new_is_archived:
+            return self.model.is_archived
+        self.model.is_archived = new_is_archived
+    def is_deleted(self, new_is_deleted = None):
+        if not new_is_deleted:
+            return self.model.is_deleted
+        self.model.is_deleted = new_is_deleted
     def create_date(self, new_create_date = None):
         if not new_create_date:
             return self.model.create_date
@@ -53,12 +61,20 @@ class Thread(object):
         obj.model = result
         return obj
     @staticmethod
-    def create_thread(parent = None, author = '', subject = '', content = ''):
+    def get_threads():
+        results = DBSession.query(ThreadModel).all()
+        objs = {}
+        for result in results:
+            objs[result.id] = Thread()
+            objs[result.id].model = result
+        return objs
+    @staticmethod
+    def create_thread(parent = None, author = '', subject = '', content = '', is_archived = False, is_deleted = False):
         thread_uuid = str(uuid.uuid4())
         create_date = datetime.utcnow()
         if not parent:
             parent = thread_uuid
-        result = ThreadModel(uuid = thread_uuid, parent = parent, author = author, subject = subject, content = content, create_date = create_date, update_date = create_date)
+        result = ThreadModel(uuid = thread_uuid, parent = parent, author = author, subject = subject, content = content, is_archived = is_archived, is_deleted = is_deleted, create_date = create_date, update_date = create_date)
         DBSession.add(result)
         thread = Thread()
         thread.model = result
