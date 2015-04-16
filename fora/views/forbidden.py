@@ -11,3 +11,4 @@ class ForbiddenView(View):
                                             template = 'fora:templates/forbidden.pt',
                                             actions = {
                                             })
+        self.title = self.localizer.translate('403 Forbidden', domain = 'fora')

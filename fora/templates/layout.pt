@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="${request.locale_name}" metal:define-macro="layout">
+<html lang="${request.locale_name}" metal:define-macro="layout" i18n:domain="fora">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

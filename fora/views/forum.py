@@ -23,14 +23,14 @@ class ForumView(View):
                                             'create_topic': self.create_topic,
                                             'delete_topic': self.delete_topic
                                         })
-        self.title = 'Forum'
+        self.title = self.localizer.translate('Forum', domain = 'fora')
         self.value['identity'] = request.matchdict['identity']
     def prepare_template(self):
         forum = Forum.get_forum_by_uuid(self.value['identity'])
         if not forum:
             self.exception = HTTPNotFound()
         else:
-            self.title = 'Forum ' + forum.title()
+            self.title = self.localizer.translate('Forum ${forum_title}', domain = 'fora', mapping = {'forum_title': forum.title()})
             self.value['forum'] = {
                 'title': forum.title(),
                 'description': forum.description()

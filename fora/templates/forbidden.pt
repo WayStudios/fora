@@ -1,4 +1,4 @@
-<metal:main use-macro="load: layout.pt">
+<metal:main use-macro="load: layout.pt" i18n:domain="fora">
   <metal:style fill-slot="style">
     <style>
       #panel-notfound .panel-body {
@@ -10,23 +10,25 @@
     <!-- Breadcrumb -->
     <div id="container-breadcrumb" class="container">
       <ol id="breadcrumb" class="breadcrumb">
-        <li><a href="${request.application_url}/">Home</a></li>
-        <li class="active">403 Forbidden</li>
+        <li><a href="${request.application_url}/" i18n:translate="home">Home</a></li>
+        <li class="active" i18n:translate="403_forbidden">403 Forbidden</li>
       </ol>
     </div>
 
     <div id="panel-notfound" class="panel panel-default">
       <!-- Default panel contents -->
-      <div class="panel-heading">403 Forbidden</div>
+      <div class="panel-heading">
+        <h3 class="panel-title" i18n:translate="403_forbidden">403 Forbidden</h3>
+      </div>
 
-      <div class="panel-body">
+      <div class="panel-body" i18n:translate="403_forbidden_message">
         <p>Well done!</p>
         <p>You have found a secret.</p>
         <p>Now, please leave.</p>
         <p>We have nothing to show you at this time.</p>
       </div>
 
-      <div class="panel-footer">Exception</div>
+      <div class="panel-footer" i18n:translate="exception_panel_footer_message">Exception</div>
     </div>
   </metal:content>
 </metal:main>

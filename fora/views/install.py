@@ -12,5 +12,8 @@ class InstallView(View):
                                           actions = {
                                               'start_installation': self.start_installation
                                           })
+        self.title = self.localizer.translate('Install', domain = 'fora')
+    def prepare_template(self):
+        super(InstallView, self).prepare_template()
     def start_installation(self):
         return

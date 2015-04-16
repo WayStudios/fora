@@ -11,3 +11,4 @@ class NotFoundView(View):
                                            template = 'fora:templates/notfound.pt',
                                            actions = {
                                            })
+        self.title = self.localizer.translate('404 Not Found', domain = 'fora')

@@ -1,18 +1,22 @@
-<metal:main use-macro="load: layout.pt">
+<metal:main use-macro="load: layout.pt" i18n:domain="fora">
   <metal:style fill-slot="style">
   </metal:style>
   <div id="panel-forums" class="panel panel-default" metal:fill-slot="content">
     <!-- Default panel contents -->
-    <div class="panel-heading">Forums</div>
+    <div class="panel-heading">
+      <h3 class="panel-title" i18n:translate="forums">Forums</h3>
+    </div>
 
     <div class="panel-body">
-      <p>Here lies the available forums.</p>
+      <p i18n:translate="forums_panel_header_message">Here lies the available forums.</p>
     </div>
 
     <!-- List group -->
     <div id="list-forum" class="list-group"></div>
 
-    <div class="panel-footer">Come back for more!</div>
+    <div class="panel-footer">
+      <span i18n:translate="forums_panel_footer_message">Come back for more!</span>
+    </div>
   </div>
 
   <metal:extra fill-slot="extra">

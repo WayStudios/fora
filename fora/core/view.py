@@ -11,12 +11,14 @@ class View(object):
     exception = None
     json = None
     template = None
+    localizer = None
     value = {}
     actions = {}
     response = None
     configurations = {}
     def __init__(self, request, template, actions):
         self.request = request
+        self.localizer = request.localizer
         try:
             self.json = self.request.json_body
         except:

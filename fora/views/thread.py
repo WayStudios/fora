@@ -19,14 +19,14 @@ class ThreadView(View):
                                         template = 'fora:templates/thread.pt',
                                         actions = {
                                         })
-        self.title = 'Thread'
+        self.title = self.localizer.translate('Thread', domain = 'fora')
         self.value['identity'] = request.matchdict['identity']
     def prepare_template(self):
         thread = Thread.get_thread_by_uuid(uuid = self.value['identity'])
         if not thread:
             self.exception = HTTPNotFound()
         else:
-            self.title = 'Thread ' + thread.subject()
+            self.title = self.localizer.translate('Thread ${thread_subject}', domain = 'fora', mapping = {'thread_subject': thread.subject()})
             self.value['thread'] = {
                 'author': thread.author(),
                 'subject': thread.subject(),

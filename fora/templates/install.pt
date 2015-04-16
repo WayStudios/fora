@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="${request.locale_name}">
+<html lang="${request.locale_name}" i18n:domain="fora">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
     <meta name="author" content="Xu [xw901103@gmail.com]">
     <link rel="shortcut icon" href="${request.static_url('fora:static/pyramid-16x16.png')}">
 
-    <title>fora - Install</title>
+    <title i18n:translate="fora_install_title">fora - Install</title>
 
     <!-- bootstrap core CSS -->
     <link href="${request.static_url('fora:static/css/bootstrap.min.css')}" rel="stylesheet">
@@ -46,7 +46,7 @@
 
       <div id="panel-install" class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Install fora</div>
+        <div class="panel-heading" i18n:translate="install_fora">Install fora</div>
 
         <div class="panel-body">
           <form id="form-install">

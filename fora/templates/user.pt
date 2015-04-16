@@ -1,18 +1,20 @@
-<metal:main use-macro="load: layout.pt">
+<metal:main use-macro="load: layout.pt" i18n:domain="fora">
   <metal:style fill-slot="style">
   </metal:style>
   <metal:content fill-slot="content">
     <!-- Breadcrumb -->
     <div id="container-breadcrumb" class="container">
       <ol id="breadcrumb" class="breadcrumb">
-        <li><a href="${request.application_url}/">Home</a></li>
-        <li class="active">User</li>
+        <li><a href="${request.application_url}/" i18n:translate="home">Home</a></li>
+        <li class="active" i18n:translate="breadcrumb_user">User <span tal:replace='user.username' i18n:name='user_username'/></li>
       </ol>
     </div>
 
     <div id="panel-user" class="panel panel-default">
       <!-- Default panel contents -->
-      <div class="panel-heading">User ${identity}</div>
+      <div class="panel-heading">
+        <h3 class="panel-title" i18n:translate="user_panel_title">User <span tal:replace='user.username' i18n:name='user_username'/></h3>
+      </div>
 
       <div class="panel-body">
         <div class="row">
@@ -25,7 +27,7 @@
         </div>
       </div>
 
-      <div class="panel-footer">User information</div>
+      <div class="panel-footer" i18n:translate="user_panel_footer_message">User information</div>
     </div>
   </metal:content>
   <metal:extra fill-slot="extra">

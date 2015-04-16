@@ -15,6 +15,7 @@ class RegistrationView(View):
                                                actions = {
                                                    'create_user': self.create_user
                                                })
+        self.title = self.localizer.translate('Registration', domain = 'fora')
     def create_user(self):
         email = self.json['email']
         username = self.json['username']
@@ -26,3 +27,5 @@ class RegistrationView(View):
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,
                                            request = self.request)
+    def prepare_template(self):
+        super(RegistrationView, self).prepare_template()

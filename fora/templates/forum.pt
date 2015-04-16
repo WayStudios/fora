@@ -1,16 +1,18 @@
-<metal:main use-macro="load: layout.pt">
+<metal:main use-macro="load: layout.pt" i18n:domain="fora">
   <metal:content fill-slot="content">
     <!-- Breadcrumb -->
     <div id="container-breadcrumb" class="container">
       <ol id="breadcrumb" class="breadcrumb">
-        <li><a href="${request.application_url}/">Home</a></li>
-        <li class="active">Forum ${forum.title}</li>
+        <li><a href="${request.application_url}/" i18n:translate="home">Home</a></li>
+        <li class="active" i18n:translate="breadcrumb_forum">Forum <span tal:replace='forum.title' i18n:name='forum_title'/></li>
       </ol>
     </div>
 
     <div id="panel-topics" class="panel panel-default">
       <!-- Default panel contents -->
-      <div class="panel-heading">Forum ${forum.title}</div>
+      <div class="panel-heading">
+        <h3 class="panel-title" i18n:translate="topics_panel_title">Forum <span tal:replace='forum.title' i18n:name='forum_title'/></h3>
+      </div>
 
       <div class="panel-body">
         <p>${forum.description}</p>
@@ -19,31 +21,35 @@
       <!-- List group -->
       <div id="list-topic" class="list-group"></div>
 
-      <div class="panel-footer">Come back for more!</div>
+      <div class="panel-footer">
+        <span i18n:translate="topics_panel_footer_message">Come back for more!</span>
+      </div>
     </div>
 
     <div id="panel-create-topic" class="panel panel-default">
       <!-- Default panel contents -->
-      <div class="panel-heading">Create topic</div>
+      <div class="panel-heading">
+        <h3 class="panel-title" i18n:translate="create_topic">Create topic</h3>
+      </div>
 
       <div class="panel-body">
         <form id="form-create-topic">
           <div class="form-group">
-            <input type="text" id="input-subject" class="form-control" placeholder="Subject" required>
+            <input type="text" id="input-subject" class="form-control" placeholder="Subject" i18n:attributes="placeholder subject" required>
           </div>
           <div class="form-group">
-            <textarea id="textarea-content" class="form-control" placeholder="Type your topic contents here." required></textarea>
+            <textarea id="textarea-content" class="form-control" placeholder="Type your topic contents here." i18n:attributes="placeholder type_topic_contents_here" required></textarea>
           </div>
           <div class="checkbox">
             <label>
-              <input id="checkbox-accept-policies" type="checkbox"> I accept the forum policies.
+              <input id="checkbox-accept-policies" type="checkbox"><span i18n:translate="accept_policies"> I accept the forum policies.</span>
             </label>
           </div>
         </form>
       </div>
 
       <div class="panel-footer">
-        <button id="button-create-topic-submit" type="button" class="btn btn-primary">Submit</button>
+        <button id="button-create-topic-submit" type="button" class="btn btn-primary" i18n:translate="submit">Submit</button>
       </div>
     </div>
   </metal:content>

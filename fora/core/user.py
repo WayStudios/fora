@@ -48,6 +48,12 @@ class User(object):
             return self.model.update_date
         self.model.update_date = new_update_date
     @staticmethod
+    def get_user_by_uuid(uuid):
+        result = DBSession.query(UserModel).filter(UserModel.uuid == uuid).first()
+        obj = User()
+        obj.model = result
+        return obj
+    @staticmethod
     def get_user_by_email(email):
         result = DBSession.query(UserModel).filter(UserModel.email == email).first()
         obj = User()

@@ -23,14 +23,14 @@ class TopicView(View):
                                             'edit_thread': self.edit_thread,
                                             'delete_thread': self.delete_thread
                                         })
-        self.title = 'Topic'
+        self.title = self.localizer.translate('Topic', domain = 'fora')
         self.value['identity'] = request.matchdict['identity']
     def prepare_template(self):
         topic = Topic.get_topic_by_uuid(uuid = self.value['identity'])
         if not topic:
             self.exception = HTTPNotFound()
         else:
-            self.title = 'Topic ' + topic.subject()
+            self.title = self.localizer.translate('Topic ${topic_subject}', domain = 'fora', mapping = {'topic_subject': topic.subject()})
             self.value['topic'] = {
                 'subject': topic.subject()
             }
