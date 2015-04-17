@@ -13,10 +13,14 @@ function htmlListThreadItem(entry) {
 
   html += "<div class='row'>";
   html += "<div class='col-xs-3 col-sm-2 col-md-1'>";
-  html += "<h5 style='text-align:center;'><a href='/user/" + entry.author + "'>" + entry.author + "</a></h5>";
+  if (entry.is_anonymous) {
+    html += "<h5 style='text-align:center;'><span>" + entry.author + "</span></h5>";
+  } else {
+    html += "<h5 style='text-align:center;'><a href='/user/" + entry.author + "'>" + entry.username + "</a></h5>";
+  }
   html += "</div>";
   html += "<div class='col-xs-9 col-sm-10 col-md-11'>";
-  html += "<h6 style='text-align:right;'> created: " + entry.create_date + " updated: " + entry.update_date + "</h6>";
+  html += "<h6 style='text-align:right;'><a href='/thread/" + entry.uuid + "'>#" + entry.id + "</a> " + entry.update_date + "</h6>";
   html += "</div>";
   html += "</div>";
 
@@ -59,7 +63,7 @@ $(document).ready(function() {
       contentType: "application/json; charaset=utf-8",
       success: function(data) {
         if (data.status) {
-
+          document.location.reload();
         }
       }
     });

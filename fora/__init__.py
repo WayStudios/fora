@@ -1,6 +1,7 @@
 # fora
 # Xu [xw901103@gmail.com] Copyright 2015
 from pyramid.config import Configurator
+from pyramid.session import SignedCookieSessionFactory
 
 from sqlalchemy import engine_from_config
 
@@ -28,6 +29,7 @@ from fora.views.adminforums import AdminForumsView
 from fora.views.admintopics import AdminTopicsView
 from fora.views.adminthreads import AdminThreadsView
 from fora.views.adminarticles import AdminArticlesView
+from fora.views.adminconfigurations import AdminConfigurationsView
 
 import uuid
 
@@ -35,7 +37,7 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind = engine)
     Model.metadata.bind = engine
-    config = Configurator(settings=settings)
+    config = Configurator(settings = settings, session_factory = SignedCookieSessionFactory(secret = settings['fora.session.secret'], salt = 'fora.session'))
     config.include('pyramid_chameleon')
     config.add_static_view('static', 'static', cache_max_age = 3600)
     config.add_forbidden_view(view = ForbiddenView)
@@ -60,11 +62,20 @@ def main(global_config, **settings):
     config.add_view(view = AdminPortalView, route_name = 'admin_portal')
     config.add_route('admin_dashboard', '/admin/dashboard')
     config.add_view(view = AdminDashboardView, route_name = 'admin_dashboard')
+    config.add_route('admin_topics', '/admin/topics')
+    config.add_view(view = AdminTopicsView, route_name = 'admin_topics')
+    config.add_route('admin_threads', '/admin/threads')
+    config.add_view(view = AdminThreadsView, route_name = 'admin_threads')
     config.add_route('admin_sites', '/admin/sites')
     config.add_view(view = AdminSitesView, route_name = 'admin_sites')
     config.add_route('admin_users', '/admin/users')
     config.add_view(view = AdminUsersView, route_name = 'admin_users')
+    config.add_route('admin_articles', '/admin/articles')
+    config.add_view(view = AdminArticlesView, route_name = 'admin_articles')
     config.add_route('admin_forums', '/admin/forums')
     config.add_view(view = AdminForumsView, route_name = 'admin_forums')
+    config.add_route('admin_configurations', '/admin/configurations')
+    config.add_view(view = AdminConfigurationsView, route_name = 'admin_configurations')
+    config.add_translation_dirs('fora:locales')
     config.scan()
     return config.make_wsgi_app()

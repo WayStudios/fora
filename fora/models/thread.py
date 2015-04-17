@@ -19,6 +19,7 @@ class ThreadModel(Model):
     author = Column(String)
     subject = Column(String)
     content = Column(String)
+    is_anonymous = Column(Boolean)
     is_archived = Column(Boolean)
     is_deleted = Column(Boolean)
     create_date = Column(DateTime)

@@ -36,6 +36,10 @@ class Thread(object):
         if not new_content:
             return self.model.content
         self.model.content = new_content
+    def is_anonymous(self, new_is_anonymous = None):
+        if not new_is_anonymous:
+            return self.model.is_anonymous
+        self.model.is_anonymous = new_is_anonymous
     def is_archived(self, new_is_archived = None):
         if not new_is_archived:
             return self.model.is_archived
@@ -69,12 +73,12 @@ class Thread(object):
             objs[result.id].model = result
         return objs
     @staticmethod
-    def create_thread(parent = None, author = '', subject = '', content = '', is_archived = False, is_deleted = False):
+    def create_thread(parent = None, author = '', subject = '', content = '', is_anonymous = False, is_archived = False, is_deleted = False):
         thread_uuid = str(uuid.uuid4())
         create_date = datetime.utcnow()
         if not parent:
             parent = thread_uuid
-        result = ThreadModel(uuid = thread_uuid, parent = parent, author = author, subject = subject, content = content, is_archived = is_archived, is_deleted = is_deleted, create_date = create_date, update_date = create_date)
+        result = ThreadModel(uuid = thread_uuid, parent = parent, author = author, subject = subject, content = content, is_anonymous = is_anonymous, is_archived = is_archived, is_deleted = is_deleted, create_date = create_date, update_date = create_date)
         DBSession.add(result)
         thread = Thread()
         thread.model = result

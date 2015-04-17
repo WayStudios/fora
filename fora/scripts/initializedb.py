@@ -64,7 +64,7 @@ def main(argv=sys.argv):
         DBSession.add(article_fora_about)
         article_fora_contact = ArticleModel(uuid = str(uuid.uuid4()), title = 'Contact', description = 'CMS contact page', content = 'This is the contact page.', is_active = True, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(article_fora_contact)
-        thread_fora_demo = ThreadModel(uuid = thread_uuid, parent = thread_uuid, author = 'anonymous', subject = 'demo', content = 'demo content', is_archived = False, is_deleted = False, create_date = datetime.utcnow(), update_date = datetime.utcnow())
+        thread_fora_demo = ThreadModel(uuid = thread_uuid, parent = thread_uuid, author = 'anonymous', subject = 'demo', content = 'demo content', is_anonymous = True, is_archived = False, is_deleted = False, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(thread_fora_demo)
         topic_fora_demo = TopicModel(uuid = topic_uuid, initial_thread = thread_uuid, is_archived = False, is_deleted = False, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(topic_fora_demo)

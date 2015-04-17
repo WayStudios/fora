@@ -7,10 +7,12 @@ from sqlalchemy.orm import (
 )
 from sqlalchemy import (
     asc,
-    desc
+    desc,
+    or_
 )
 from zope.sqlalchemy import ZopeTransactionExtension
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 ASC = asc
 DESC = desc
+OR = or_

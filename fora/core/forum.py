@@ -54,8 +54,8 @@ class Forum(object):
         obj = Forum()
         obj.model = result
         return obj
-    def create_topic(self, author, subject, content, is_archived = False, is_deleted = False):
-        topic = Topic.create_topic(author = author, subject = subject, content = content, is_archived = is_archived, is_deleted = is_deleted)
+    def create_topic(self, author, subject, content, is_anonymous = False, is_archived = False, is_deleted = False):
+        topic = Topic.create_topic(author = author, subject = subject, content = content, is_anonymous = is_anonymous, is_archived = is_archived, is_deleted = is_deleted)
         result = ForumTopicModel(forum_uuid = self.model.uuid, topic_uuid = topic.model.uuid)
         DBSession.add(result)
         return topic

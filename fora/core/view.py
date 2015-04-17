@@ -4,10 +4,13 @@
 from pyramid.renderers import render_to_response
 
 from fora.core.configuration import Configuration
+from fora.core.user import User
 
 class View(object):
     title = None
     request = None
+    session = None
+    user = None
     exception = None
     json = None
     template = None
@@ -18,9 +21,10 @@ class View(object):
     configurations = {}
     def __init__(self, request, template, actions):
         self.request = request
+        self.session = request.session
         self.localizer = request.localizer
         try:
-            self.json = self.request.json_body
+            self.json = request.json_body
         except:
             self.json = None
         self.template = template
@@ -35,10 +39,22 @@ class View(object):
             self.value['title'] = self.value['fora_site_name']
         else:
             self.value['title'] = self.value['fora_site_name'] + ' - ' + self.title
+        self.value['session'] = {
+            'uuid': 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx',
+            'username': 'anonymous',
+            'is_guest': self.user.is_guest()
+        }
+        if not self.user.is_guest():
+            self.value['session']['uuid'] = self.user.uuid()
+            self.value['session']['username'] = self.user.username()
     def do_action(self, action):
         if action in self.actions:
             self.actions[action]()
     def __call__(self):
+        if 'user' in self.session:
+            self.user = User.get_user_by_identity(self.session['user'])
+        if not self.user:
+            self.user = User()
         if 'action' in self.request.GET:
             self.do_action(self.request.GET['action'])
         else:

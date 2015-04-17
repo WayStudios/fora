@@ -33,6 +33,7 @@
       <div class="panel-heading" i18n:translate="reply_topic">Reply topic</div>
 
       <div class="panel-body">
+        <div id="alert-reply-topic-anonymous" class="alert alert-info" role="alert" tal:condition="session.is_guest == True" i18n:translate="reply_topic_anonymous">You will reply this topic as anonymous user.</div>
         <form id="form-reply-topic">
           <div class="form-group">
             <input type="text" id="input-subject" class="form-control" placeholder="Subject" i18n:attributes="placeholder subject" required>

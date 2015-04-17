@@ -25,24 +25,33 @@ class UserView(View):
         self.title = self.localizer.translate('User', 'fora')
         self.value['identity'] = request.matchdict['identity']
     def prepare_template(self):
-        user = User.get_user_by_uuid(self.value['identity'])
-        if not user:
+        user = User.get_user_by_identity(self.value['identity'])
+        if user.is_guest():
             self.exception = HTTPNotFound()
         else:
             self.title = self.localizer.translate('User ${user_username}', domain = 'fora', mapping = {'user_username': user.username()})
             self.value['user'] = {
+                'uuid': user.uuid(),
                 'username': user.username(),
                 'email': user.email()
             }
         super(UserView, self).prepare_template()
     def login_user(self):
         value = {
-            'status': True
+            'status': False
         }
+        user = User.get_user_by_identity(self.json['identity'])
+        if not user.is_guest():
+            if user.password() == self.json['password']:
+                self.session['user'] = user.uuid()
+                self.session.changed()
+                value['status'] = True
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,
                                            request = self.request)
     def logout_user(self):
+        self.session['user'] = None
+        self.session.invalidate()
         value = {
             'status': True
         }

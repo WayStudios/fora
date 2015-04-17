@@ -35,6 +35,9 @@
         padding-left: 0;
         padding-right: 0;
       }
+      #alert-login-invalid-credential, #alert-login-success {
+        display: none;
+      }
     </style>
     <metal:style define-slot="style" />
   </head>
@@ -55,6 +58,8 @@
     <script src="${request.static_url('fora:static/js/ie10-viewport-bug-workaround.js')}"></script>
 
     <script src="${request.static_url('fora:static/js/holder.min.js')}"></script>
+
+    <script src="${request.static_url('fora:static/js/fora.user.js')}"></script>
     <metal:extra define-slot="extra" />
 
     <!-- Bootlint -->

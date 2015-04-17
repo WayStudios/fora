@@ -64,8 +64,8 @@ class Topic(object):
             objs[result.id] = Thread()
             objs[result.id].model = result
         return objs
-    def create_thread(self, parent = None, author = '', subject = '', content = ''):
-        thread = Thread.create_thread(parent = parent, author = author, subject = subject, content = content)
+    def create_thread(self, parent = None, author = '', subject = '', content = '', is_anonymous = False):
+        thread = Thread.create_thread(parent = parent, author = author, subject = subject, content = content, is_anonymous = is_anonymous)
         result = TopicThreadModel(topic_uuid = self.model.uuid, thread_uuid = thread.model.uuid)
         DBSession.add(result)
         return thread
@@ -84,8 +84,8 @@ class Topic(object):
             objs[result.id].model = result
         return objs
     @staticmethod
-    def create_topic(author, subject, content, is_archived = False, is_deleted = False):
-        thread = Thread.create_thread(author = author, subject = subject, content = content, is_archived = is_archived, is_deleted = is_deleted)
+    def create_topic(author, subject, content, is_anonymous = False, is_archived = False, is_deleted = False):
+        thread = Thread.create_thread(author = author, subject = subject, content = content, is_anonymous = is_anonymous, is_archived = is_archived, is_deleted = is_deleted)
         topic_uuid = str(uuid.uuid4())
         create_date = thread.model.create_date
         result = TopicModel(uuid = topic_uuid, initial_thread = thread.model.uuid, is_archived = is_archived, is_deleted = is_deleted, create_date = create_date, update_date = create_date)

@@ -12,6 +12,9 @@ from pyramid.httpexceptions import (
     HTTPForbidden
 )
 
+from ipaddress import ip_address
+from hashids import Hashids
+
 class ForumView(View):
     """ This class contains the forum view of fora.
     """
@@ -63,8 +66,20 @@ class ForumView(View):
         }
         subject = self.json['subject']
         content = self.json['content']
+        author = 'anonymous'
+        is_anonymous = True
+        if self.user.is_guest():
+            hashids = Hashids(salt = 'fora')
+            remote_addr = ip_address(self.request.remote_addr).packed
+            author = hashids.encode(int(remote_addr[0]),
+                                    int(remote_addr[1]),
+                                    int(remote_addr[2]),
+                                    int(remote_addr[3]))
+        else:
+            author = self.user.uuid()
+            is_anonymous = False
         forum = Forum.get_forum_by_uuid(self.value['identity'])
-        topic = forum.create_topic(author = 'anonymous', subject = subject, content = content)
+        topic = forum.create_topic(author = author, subject = subject, content = content, is_anonymous = is_anonymous)
         value['uuid'] = topic.uuid()
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,

@@ -1,7 +1,10 @@
 # fora
 # class User
 # Xu [xw901103@gmail.com] Copyright 2015
-from fora.core.dbsession import DBSession
+from fora.core.dbsession import (
+    DBSession,
+    OR
+)
 from fora.models.user import UserModel
 
 import uuid
@@ -13,6 +16,8 @@ class User(object):
     model = None
     def __init__(self):
         self.model = None
+    def is_guest(self):
+        return self.model == None
     def id(self):
         return self.model.id
     def uuid(self, new_uuid = None):
@@ -62,6 +67,12 @@ class User(object):
     @staticmethod
     def get_user_by_username(username):
         result = DBSession.query(UserModel).filter(UserModel.username == username).first()
+        obj = User()
+        obj.model = result
+        return obj
+    @staticmethod
+    def get_user_by_identity(identity):
+        result = DBSession.query(UserModel).filter(OR(UserModel.username == identity, UserModel.email == identity, UserModel.uuid == identity)).first()
         obj = User()
         obj.model = result
         return obj

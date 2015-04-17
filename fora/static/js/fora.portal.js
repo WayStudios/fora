@@ -1,6 +1,5 @@
 function htmlListForumItem(entry) {
   var html = "<a href='/forum/" + entry.uuid + "' class='list-group-item'>";
-  html += "<span class='badge'>" + 0 + " Unread Threads</span>";
   html += "<h4 class='list-group-item-heading'>" + entry.title + "</h4>";
   html += "<p class='list-group-item-text'>" + entry.description + "</p>";
   html += "</a>";

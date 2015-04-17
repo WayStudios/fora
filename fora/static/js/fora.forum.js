@@ -1,6 +1,5 @@
 function htmlListTopicItem(entry) {
   var html = "<a href='/topic/" + entry.uuid + "' class='list-group-item'>";
-  html += "<span class='badge'>" + 0 + " Unread Threads</span>";
   html += "<h4 class='list-group-item-heading'><i class='fa fa-comments'></i> " + entry.initial_thread.subject + "</h4>";
   html += "</a>";
   return html;
@@ -41,6 +40,7 @@ $(document).ready(function() {
       contentType: "application/json; charaset=utf-8",
       success: function(data) {
         if (data.status) {
+          document.location.reload();
         }
       }
     });

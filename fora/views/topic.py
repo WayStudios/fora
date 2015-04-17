@@ -3,6 +3,7 @@
 # Xu [xw901103@gmail.com] Copyright 2015
 from fora.core.view import View
 from fora.core.topic import Topic
+from fora.core.user import User
 
 from pyramid.renderers import render_to_response
 
@@ -10,6 +11,9 @@ from pyramid.httpexceptions import (
     HTTPNotFound,
     HTTPForbidden
 )
+
+from ipaddress import ip_address
+from hashids import Hashids
 
 class TopicView(View):
     """ This class contains the topic view of fora.
@@ -42,17 +46,22 @@ class TopicView(View):
         }
         topic = Topic.get_topic_by_uuid(uuid = self.value['identity'])
         threads = topic.get_threads()
-        for uuid in threads:
-            thread = threads[uuid]
-            value['entries'][uuid] = {
+        for id in threads:
+            thread = threads[id]
+            value['entries'][id] = {
                 'id': thread.id(),
                 'uuid': thread.uuid(),
                 'author': thread.author(),
                 'subject': thread.subject(),
                 'content': thread.content(),
+                'is_anonymous': thread.is_anonymous(),
                 'create_date': thread.create_date().strftime('%Y-%m-%d %H:%M:%S'),
                 'update_date': thread.update_date().strftime('%Y-%m-%d %H:%M:%S')
             }
+            if not thread.is_anonymous():
+                user = User.get_user_by_identity(thread.author())
+                if not user.is_guest():
+                    value['entries'][id]['username'] = user.username()
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,
                                            request = self.request)
@@ -61,10 +70,22 @@ class TopicView(View):
             'status': True,
             'uuid': ''
         }
+        author = 'anonymous'
+        is_anonymous = True
+        if self.user.is_guest():
+            hashids = Hashids(salt = 'fora')
+            remote_addr = ip_address(self.request.remote_addr).packed
+            author = hashids.encode(int(remote_addr[0]),
+                                    int(remote_addr[1]),
+                                    int(remote_addr[2]),
+                                    int(remote_addr[3]))
+        else:
+            author = self.user.uuid()
+            is_anonymous = False
         subject = self.json['subject']
         content = self.json['content']
         topic = Topic.get_topic_by_uuid(uuid = self.value['identity'])
-        thread = topic.create_thread(author = 'anonymous', subject = subject, content = content)
+        thread = topic.create_thread(author = author, subject = subject, content = content, is_anonymous = is_anonymous)
         value['uuid'] = thread.uuid()
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,

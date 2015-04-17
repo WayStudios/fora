@@ -28,10 +28,10 @@
         </div>
         <div class="row">
           <div class="col-xs-3 col-sm-2 col-md-1">
-            <h5 style="text-align:center;"><a href="${request.application_url}/user/${thread.author}">${thread.author}</a></h5>
+            <h5 style="text-align:center;"><a href="${request.application_url}/user/${thread.author}">${thread.username}</a></h5>
           </div>
           <div class="col-xs-9 col-sm-10 col-md-11">
-            <h6 style="text-align:right;"> created: ${thread.create_date} updated: ${thread.update_date}</h6>
+            <h6 style="text-align:right;">#${thread.id} ${thread.update_date}</h6>
           </div>
         </div>
       </div>
