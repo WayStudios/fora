@@ -19,7 +19,7 @@
       <div class="panel-body">
         <form id="form-user-registration">
           <div class="form-group">
-            <input type="email" class="form-control" id="input-email" placeholder="Email address" i18n:attributes="placeholder email_address" required>
+            <input type="email" class="form-control" id="input-email-address" placeholder="Email address" i18n:attributes="placeholder email_address" required>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="input-username" placeholder="Username" i18n:attributes="placeholder username" required>
@@ -44,5 +44,6 @@
     </div>
   </metal:content>
   <metal:extra fill-slot="extra">
+    <script src="${request.static_url('fora:static/js/fora.registration.js')}"></script>
   </metal:extra>
 </metal:main>

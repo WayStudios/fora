@@ -1,12 +1,16 @@
 # fora
 # class AdminConfigurationsView
 # Xu [xw901103@gmail.com] Copyright 2015
-from fora.core.view import View
+from fora.core.adminview import AdminView
 from fora.core.configuration import Configuration
 
 from pyramid.renderers import render_to_response
 
-class AdminConfigurationsView(View):
+from pyramid.httpexceptions import (
+    HTTPFound
+)
+
+class AdminConfigurationsView(AdminView):
     """ This class contains the configurations administration view of fora.
     """
     def __init__(self, request):
@@ -17,6 +21,17 @@ class AdminConfigurationsView(View):
                                                           'retrieve_configuration': self.retrieve_configuration,
                                                           'delete_configuration': self.delete_configuration
                                                       })
+    def prepare_template(self):
+        if not self.moderator.is_guest():
+            if self.activity == 'view':
+                self.template = 'fora:templates/admin/configurations/view.pt'
+            elif self.activity == 'create':
+                self.template = 'fora:templates/admin/configurations/create.pt'
+            elif self.activity == 'edit':
+                self.template = 'fora:templates/admin/configurations/edit.pt'
+        else:
+            self.exception = HTTPFound(self.request.route_url("admin_portal"))
+        super(AdminConfigurationsView, self).prepare_template()
     def retrieve_configurations(self):
         value = {
             'status': True,

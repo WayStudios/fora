@@ -7,24 +7,20 @@
     </style>
   </metal:content>
   <metal:content fill-slot="content">
-    <h2 class="sub-header">Topics</h2>
-    <div id="datatable-topics" class="table-responsive"></div>
+    <h2 class="page-header">Moderators</h2>
+    <div id="datatable-moderators" class="table-responsive"></div>
   </metal:content>
   <metal:extra fill-slot="extra">
     <script src="${request.static_url('fora:static/js/jquery-ui.widget.min.js')}"></script>
     <script src="${request.static_url('fora:static/js/fora.datatable.js')}"></script>
     <script>
       $(document).ready(function() {
-        $("#nav-topics").addClass("active");
-        $("#datatable-topics").datatable({
+        $("#nav-moderators").addClass("active");
+        $("#datatable-moderators").datatable({
           columns: [
             "id",
-            "author",
-            "subject",
-            "is_archived",
-            "is_deleted",
-            "create_date",
-            "update_date"
+            "username",
+            "email_address"
           ],
           modals: {
             create: false,
@@ -32,18 +28,18 @@
             edit: false
           },
           actions: {
-            create: false,
-            view: true,
+            create: true,
+            view: false,
             edit: true,
             delete: true
           },
           uri: {
-            retrieveEntries: "?action=retrieve_topics",
-            retrieveEntry: "?action=retrieve_topic",
-            viewEntry: "topics/view/{identity}",
-            createEntry: "topics/create/",
-            editEntry: "topics/edit/{identity}",
-            deleteEntry: "?action=delete_topic"
+            retrieveEntries: "?action=retrieve_moderators",
+            retrieveEntry: "?action=retrieve_moderator",
+            viewEntry: "moderators/view/{identity}",
+            createEntry: "moderators/create/",
+            editEntry: "moderators/edit/{identity}",
+            deleteEntry: "?action=delete_moderator"
           }
         });
       });

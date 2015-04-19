@@ -5,7 +5,7 @@ $(document).ready(function() {
     var identity = form.find("#input-identity").val();
     var password = form.find("#input-password").val();
     $.ajax({
-      url: "/user/?action=login_user",
+      url: "/admin?action=login_moderator",
       type: "POST",
       data: JSON.stringify({
         "identity": identity,
@@ -28,7 +28,7 @@ $(document).ready(function() {
   $("#nav-logout").click(function( event ){
     event.preventDefault();
     $.ajax({
-      url: "/user/?action=logout_user",
+      url: "/admin?action=logout_moderator",
       type: "POST",
       data: JSON.stringify({
       }),

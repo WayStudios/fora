@@ -59,8 +59,8 @@ class Article(object):
         return objs
     @staticmethod
     def create_article(title = '', description = '', content = '', is_active = True):
-        result = ArticleModel(uuid = str(uuid.uuid4()), email = email, username = username, password = password, is_active = is_active, is_deleted = is_deleted, create_date = datetime.utcnow(), update_date = datetime.utcnow())
+        result = ArticleModel(uuid = str(uuid.uuid4()), is_active = is_active, is_deleted = is_deleted, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(result)
-        obj = User()
+        obj = Article()
         obj.model = result
         return obj

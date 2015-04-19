@@ -58,7 +58,7 @@ class Topic(object):
             return self.model.update_date
         self.model.update_date = new_update_date
     def get_threads(self, order_asc = ThreadModel.id):
-        results = DBSession.query(ThreadModel).filter(ThreadModel.uuid == TopicThreadModel.thread_uuid, TopicThreadModel.topic_uuid == self.model.uuid).order_by(ASC(order_asc)).all()
+        results = DBSession.query(ThreadModel).filter(ThreadModel.uuid == TopicThreadModel.thread, TopicThreadModel.topic == self.model.uuid).order_by(ASC(order_asc)).all()
         objs = {}
         for result in results:
             objs[result.id] = Thread()
@@ -66,7 +66,7 @@ class Topic(object):
         return objs
     def create_thread(self, parent = None, author = '', subject = '', content = '', is_anonymous = False):
         thread = Thread.create_thread(parent = parent, author = author, subject = subject, content = content, is_anonymous = is_anonymous)
-        result = TopicThreadModel(topic_uuid = self.model.uuid, thread_uuid = thread.model.uuid)
+        result = TopicThreadModel(topic = self.model.uuid, thread = thread.model.uuid)
         DBSession.add(result)
         return thread
     @staticmethod
@@ -92,6 +92,6 @@ class Topic(object):
         DBSession.add(result)
         topic = Topic()
         topic.model = result
-        result = TopicThreadModel(topic_uuid = topic.model.uuid, thread_uuid = thread.model.uuid)
+        result = TopicThreadModel(topic = topic.model.uuid, thread = thread.model.uuid)
         DBSession.add(result)
         return topic

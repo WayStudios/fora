@@ -29,6 +29,7 @@ from fora.views.adminforums import AdminForumsView
 from fora.views.admintopics import AdminTopicsView
 from fora.views.adminthreads import AdminThreadsView
 from fora.views.adminarticles import AdminArticlesView
+from fora.views.adminmoderators import AdminModeratorsView
 from fora.views.adminconfigurations import AdminConfigurationsView
 
 import uuid
@@ -64,18 +65,36 @@ def main(global_config, **settings):
     config.add_view(view = AdminDashboardView, route_name = 'admin_dashboard')
     config.add_route('admin_topics', '/admin/topics')
     config.add_view(view = AdminTopicsView, route_name = 'admin_topics')
+    config.add_route('admin_topics_activity', '/admin/topics/{activity}/{identity:.*}')
+    config.add_view(view = AdminTopicsView, route_name = 'admin_topics_activity')
     config.add_route('admin_threads', '/admin/threads')
     config.add_view(view = AdminThreadsView, route_name = 'admin_threads')
+    config.add_route('admin_threads_activity', '/admin/threads/{activity}/{identity:.*}')
+    config.add_view(view = AdminThreadsView, route_name = 'admin_threads_activity')
     config.add_route('admin_sites', '/admin/sites')
     config.add_view(view = AdminSitesView, route_name = 'admin_sites')
+    config.add_route('admin_sites_activity', '/admin/sites/{activity}/{identity:.*}')
+    config.add_view(view = AdminSitesView, route_name = 'admin_sites_activity')
     config.add_route('admin_users', '/admin/users')
     config.add_view(view = AdminUsersView, route_name = 'admin_users')
+    config.add_route('admin_users_activity', '/admin/users/{activity}/{identity:.*}')
+    config.add_view(view = AdminUsersView, route_name = 'admin_users_activity')
     config.add_route('admin_articles', '/admin/articles')
     config.add_view(view = AdminArticlesView, route_name = 'admin_articles')
+    config.add_route('admin_articles_activity', '/admin/articles/{activity}/{identity:.*}')
+    config.add_view(view = AdminArticlesView, route_name = 'admin_articles_activity')
     config.add_route('admin_forums', '/admin/forums')
     config.add_view(view = AdminForumsView, route_name = 'admin_forums')
+    config.add_route('admin_forums_activity', '/admin/forums/{activity}/{identity:.*}')
+    config.add_view(view = AdminForumsView, route_name = 'admin_forums_activity')
+    config.add_route('admin_moderators', '/admin/moderators')
+    config.add_view(view = AdminModeratorsView, route_name = 'admin_moderators')
+    config.add_route('admin_moderators_activity', '/admin/moderators/{activity}/{identity:.*}')
+    config.add_view(view = AdminModeratorsView, route_name = 'admin_moderators_activity')
     config.add_route('admin_configurations', '/admin/configurations')
     config.add_view(view = AdminConfigurationsView, route_name = 'admin_configurations')
+    config.add_route('admin_configurations_activity', '/admin/configurations/{activity}/{identity:.*}')
+    config.add_view(view = AdminConfigurationsView, route_name = 'admin_configurations_activity')
     config.add_translation_dirs('fora:locales')
     config.scan()
     return config.make_wsgi_app()

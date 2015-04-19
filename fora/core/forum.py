@@ -56,11 +56,11 @@ class Forum(object):
         return obj
     def create_topic(self, author, subject, content, is_anonymous = False, is_archived = False, is_deleted = False):
         topic = Topic.create_topic(author = author, subject = subject, content = content, is_anonymous = is_anonymous, is_archived = is_archived, is_deleted = is_deleted)
-        result = ForumTopicModel(forum_uuid = self.model.uuid, topic_uuid = topic.model.uuid)
+        result = ForumTopicModel(forum = self.model.uuid, topic = topic.model.uuid)
         DBSession.add(result)
         return topic
     def get_topics(self):
-        results = DBSession.query(TopicModel).filter(TopicModel.uuid == ForumTopicModel.topic_uuid, ForumTopicModel.forum_uuid == self.model.uuid).all()
+        results = DBSession.query(TopicModel).filter(TopicModel.uuid == ForumTopicModel.topic, ForumTopicModel.forum == self.model.uuid).all()
         objs = {}
         for result in results:
             objs[result.id] = Topic()

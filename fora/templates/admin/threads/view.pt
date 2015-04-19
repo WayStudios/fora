@@ -1,0 +1,40 @@
+<metal:main use-macro="load: ../layout.pt">
+  <metal:content fill-slot="style">
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="page-header">View Thread</h2>
+    <dl>
+      <dt>UUID</dt><dd tal:content="thread.uuid"/>
+      <dt>Subject</dt><dd tal:content="thread.subject"/>
+      <dt>Author</dt>
+      <dd tal:condition="thread.is_anonymous == False" tal:content="thread.username"/>
+      <dd tal:condition="thread.is_anonymous == True" tal:content="thread.author"/>
+      <dt>Content</dt>
+      <dd tal:content="thread.content"/>
+      <dt>Is Anonymous</dt>
+      <dd>
+        <span class="text-success" tal:condition="thread.is_anonymous == True">TRUE</span>
+        <span class="text-danger" tal:condition="thread.is_anonymous == False">FALSE</span>
+      </dd>
+      <dt>Is Archived</dt>
+      <dd>
+        <span class="text-success" tal:condition="thread.is_archived == True">TRUE</span>
+        <span class="text-danger" tal:condition="thread.is_archived == False">FALSE</span>
+      </dd>
+      <dt>Is Deleted</dt>
+      <dd>
+        <span class="text-success" tal:condition="thread.is_deleted == True">TRUE</span>
+        <span class="text-danger" tal:condition="thread.is_deleted == False">FALSE</span>
+      </dd>
+      <dt>Create Date</dt><dd tal:content="thread.create_date"/>
+      <dt>Update Date</dt><dd tal:content="thread.update_date"/>
+    </dl>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script>
+      $(document).ready(function() {
+        $("#nav-threads").addClass("active");
+      });
+    </script>
+  </metal:extra>
+</metal:main>

@@ -1,12 +1,16 @@
 # fora
 # class AdminUsersView
 # Xu [xw901103@gmail.com] Copyright 2015
-from fora.core.view import View
+from fora.core.adminview import AdminView
 from fora.core.user import User
 
 from pyramid.renderers import render_to_response
 
-class AdminUsersView(View):
+from pyramid.httpexceptions import (
+    HTTPFound
+)
+
+class AdminUsersView(AdminView):
     """ This class contains the users administration view of fora.
     """
     def __init__(self, request):
@@ -17,6 +21,17 @@ class AdminUsersView(View):
                                                  'retrieve_user': self.retrieve_user,
                                                  'delete_user': self.delete_user
                                              })
+    def prepare_template(self):
+        if not self.moderator.is_guest():
+            if self.activity == 'view':
+                self.template = 'fora:templates/admin/users/view.pt'
+            elif self.activity == 'create':
+                self.template = 'fora:templates/admin/users/create.pt'
+            elif self.activity == 'edit':
+                self.template = 'fora:templates/admin/users/edit.pt'
+        else:
+            self.exception = HTTPFound(self.request.route_url("admin_portal"))
+        super(AdminUsersView, self).prepare_template()
     def retrieve_users(self):
         value = {
             'status': True,
@@ -27,7 +42,7 @@ class AdminUsersView(View):
             value['entries'].append({
                 'id': users[id].id(),
                 'username': users[id].username(),
-                'email': users[id].email()
+                'email_address': users[id].email_address()
             })
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,

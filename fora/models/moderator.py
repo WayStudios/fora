@@ -1,5 +1,5 @@
 # fora
-# class UserModel
+# class ModeratorModel
 # Xu [xw901103@gmail.com] Copyright 2015
 from fora.core.model import Model
 
@@ -11,12 +11,10 @@ from sqlalchemy import (
     DateTime
 )
 
-class UserModel(Model):
-    __tablename__ = 'users'
+class ModeratorModel(Model):
+    __tablename__ = 'moderators'
     id = Column(Integer, primary_key = True, autoincrement = True)
-    uuid = Column(String, unique = True)
-    email_address = Column(String, unique = True)
-    username = Column(String, unique = True)
+    user = Column(String, unique = True)
     password = Column(String)
     is_active = Column(Boolean)
     is_deleted = Column(Boolean)

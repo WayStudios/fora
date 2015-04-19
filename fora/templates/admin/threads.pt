@@ -7,7 +7,7 @@
     </style>
   </metal:content>
   <metal:content fill-slot="content">
-    <h2 class="sub-header">Threads</h2>
+    <h2 class="page-header">Threads</h2>
     <div id="datatable-threads" class="table-responsive"></div>
   </metal:content>
   <metal:extra fill-slot="extra">
@@ -26,14 +26,23 @@
             "create_date",
             "update_date"
           ],
-          actions: {
+          modals: {
+            create: false,
             view: false,
+            edit: false
+          },
+          actions: {
+            create: true,
+            view: true,
             edit: true,
             delete: true
           },
           uri: {
             retrieveEntries: "?action=retrieve_threads",
             retrieveEntry: "?action=retrieve_thread",
+            viewEntry: "threads/view/{identity}",
+            createEntry: "threads/create/",
+            editEntry: "threads/edit/{identity}",
             deleteEntry: "?action=delete_thread"
           }
         });

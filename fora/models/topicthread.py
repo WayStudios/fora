@@ -12,5 +12,5 @@ from sqlalchemy import (
 class TopicThreadModel(Model):
     __tablename__ = 'topics_threads'
     id = Column(Integer, primary_key = True, autoincrement = True)
-    topic_uuid = Column(String)
-    thread_uuid = Column(String)
+    topic = Column(String)
+    thread = Column(String)

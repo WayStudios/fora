@@ -33,7 +33,7 @@ class UserView(View):
             self.value['user'] = {
                 'uuid': user.uuid(),
                 'username': user.username(),
-                'email': user.email()
+                'email_address': user.email_address()
             }
         super(UserView, self).prepare_template()
     def login_user(self):

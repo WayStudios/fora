@@ -3,20 +3,38 @@ $.widget("fora.datatable", {
   options: {
     columns: [],
     actions: {
+      create: false,
       view: false,
       edit: false,
       delete: false
     },
+    modals: {
+      create: true,
+      view: true,
+      edit: true,
+      delete: true
+    },
     uri: {
       retrieveEntries: "",
       retrieveEntry: "",
+      viewEntry: "",
+      createEntry: "",
+      editEntry: "",
       deleteEntry: ""
     }
   },
 
   _draw: function() {
     var self = this;
-    var html = "<table class='table table-hover'><thead><tr>";
+    var html = "";
+    if (self.options.actions.create) {
+      if (self.options.modals.create) {
+        html += "<button type='button' class='btn btn-default pull-right' data-toggle='modal' data-target='#modal-create'>CREATE</button>";
+      } else {
+        html += "<a type='button' class='btn btn-default pull-right' href='" + self.options.uri.createEntry + "'>CREATE</a>";
+      }
+    }
+    html += "<table class='table table-hover'><thead><tr>";
     for(var i = 0; i < self.options.columns.length; ++i) {
       var column = self.options.columns[i];
       html += "<th>" + column.toUpperCase() + "</th>";
@@ -26,18 +44,61 @@ $.widget("fora.datatable", {
     }
     html += "</tr></thead><tbody>";
     html += "</tbody></table>";
-    html += "<div class='modal fade' id='modal-delete' role='dialog' aria-labelledby='modal-delete-title' aria-hidden='true'>"
-    html += "<div class='modal-dialog'>";
-    html += "<div class='modal-content'>";
-    html += "<div class='modal-header'><h4 class='modal-title' id='modal-delete-title'>Delete</h4></div>";
-    html += "<div class='modal-body'><p>You will delete a entry. Are you sure?</p></div>";
-    html += "<div class='modal-footer'>";
-    html += "<button type='button' class='btn btn-danger' data-dismiss='modal' aria-label='Delete'>DELETE</button>";
-    html += "<button type='button' class='btn btn-primary' data-dismiss='modal' aria-label='Cancel'>CANCEL</button>";
-    html += "</div>";
-    html += "</div>";
-    html += "</div>";
-    html += "</div>";
+    if (self.options.actions.create && self.options.modals.create) {
+      html += "<div class='modal fade' id='modal-create' role='dialog' aria-labelledby='modal-create-title' aria-hidden='true'>"
+      html += "<div class='modal-dialog'>";
+      html += "<div class='modal-content'>";
+      html += "<div class='modal-header'><h4 class='modal-title' id='modal-create-title'>Create</h4></div>";
+      html += "<div class='modal-body'></div>";
+      html += "<div class='modal-footer'>";
+      html += "<button type='button' class='btn btn-success' data-dismiss='modal' aria-label='Submit'>SUBMIT</button>";
+      html += "<button type='button' class='btn btn-primary' data-dismiss='modal' aria-label='Cancel'>CANCEL</button>";
+      html += "</div>";
+      html += "</div>";
+      html += "</div>";
+      html += "</div>";
+    }
+    if (self.options.actions.view && self.options.modals.view) {
+      html += "<div class='modal fade' id='modal-view' role='dialog' aria-labelledby='modal-view-title' aria-hidden='true'>"
+      html += "<div class='modal-dialog'>";
+      html += "<div class='modal-content'>";
+      html += "<div class='modal-header'><h4 class='modal-title' id='modal-view-title'>View</h4></div>";
+      html += "<div class='modal-body'></div>";
+      html += "<div class='modal-footer'>";
+      html += "<button type='button' class='btn btn-primary' data-dismiss='modal' aria-label='Close'>CLOSE</button>";
+      html += "</div>";
+      html += "</div>";
+      html += "</div>";
+      html += "</div>";
+    }
+    if (self.options.actions.edit && self.options.modals.edit) {
+      html += "<div class='modal fade' id='modal-edit' role='dialog' aria-labelledby='modal-edit-title' aria-hidden='true'>"
+      html += "<div class='modal-dialog'>";
+      html += "<div class='modal-content'>";
+      html += "<div class='modal-header'><h4 class='modal-title' id='modal-edit-title'>Edit</h4></div>";
+      html += "<div class='modal-body'></div>";
+      html += "<div class='modal-footer'>";
+      html += "<button type='button' class='btn btn-success' data-dismiss='modal' aria-label='Submit'>SUBMIT</button>";
+      html += "<button type='button' class='btn btn-primary' data-dismiss='modal' aria-label='Cancel'>CANCEL</button>";
+      html += "</div>";
+      html += "</div>";
+      html += "</div>";
+      html += "</div>";
+    }
+    if (self.options.actions.delete && self.options.modals.delete) {
+      html += "<div class='modal fade' id='modal-delete' role='dialog' aria-labelledby='modal-delete-title' aria-hidden='true'>"
+      html += "<div class='modal-dialog'>";
+      html += "<div class='modal-content'>";
+      html += "<div class='modal-header'><h4 class='modal-title' id='modal-delete-title'>Delete</h4></div>";
+      html += "<div class='modal-body'><p>You will delete a entry. Are you sure?</p></div>";
+      html += "<div class='modal-footer'>";
+      html += "<button type='button' class='btn btn-danger' data-dismiss='modal' aria-label='Delete'>DELETE</button>";
+      html += "<button type='button' class='btn btn-primary' data-dismiss='modal' aria-label='Cancel'>CANCEL</button>";
+      html += "</div>";
+      html += "</div>";
+      html += "</div>";
+      html += "</div>";
+    }
     self.element.html(html);
   },
   _create: function() {
@@ -88,13 +149,28 @@ $.widget("fora.datatable", {
             if (self.options.actions.view || self.options.actions.edit || self.options.actions.delete) {
               row += "<td>";
               if (self.options.actions.view) {
-                row += "<a type='button' class='btn btn-default'>VIEW</a>";
+                if (self.options.modals.view) {
+                  row += "<a type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-view'>VIEW</a>";
+                } else {
+                  var href = self.options.uri.viewEntry.replace(/{identity}/i, entry['identity']);
+                  row += "<a type='button' class='btn btn-info' href='" + href + "'>VIEW</a>";
+                }
               }
               if (self.options.actions.edit) {
-                row += "<a type='button' class='btn btn-default'>EDIT</a>";
+                if (self.options.modals.edit) {
+                  row += "<a type='button' class='btn btn-default' data-toggle='modal' data-target='#modal-edit'>EDIT</a>";
+                } else {
+                  var href = self.options.uri.editEntry.replace(/{identity}/i, entry['identity']);
+                  row += "<a type='button' class='btn btn-default' href='" + href + "'>EDIT</a>";
+                }
               }
               if (self.options.actions.delete) {
-                row += "<a type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-delete'>DELETE</a>";
+                if (self.options.modals.delete) {
+                  row += "<a type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-delete'>DELETE</a>";
+                } else {
+                  var href = self.options.uri.deleteEntry.replace(/{identity}/i, entry['identity']);
+                  row += "<a type='button' class='btn btn-danger' href='" + href + "'>DELETE</a>";
+                }
               }
               row += "</td>";
             }

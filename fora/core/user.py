@@ -16,6 +16,8 @@ class User(object):
     model = None
     def __init__(self):
         self.model = None
+    def exists(self):
+        return self.model != None
     def is_guest(self):
         return self.model == None
     def id(self):
@@ -24,10 +26,10 @@ class User(object):
         if not new_uuid:
             return self.model.uuid
         self.model.uuid = new_uuid
-    def email(self, new_email = None):
-        if not new_email:
-            return self.model.email
-        self.model.email = new_email
+    def email_address(self, new_email_address = None):
+        if not new_email_address:
+            return self.model.email_address
+        self.model.email_address = new_email_address
     def username(self, new_username = None):
         if not new_username:
             return self.model.username
@@ -59,8 +61,8 @@ class User(object):
         obj.model = result
         return obj
     @staticmethod
-    def get_user_by_email(email):
-        result = DBSession.query(UserModel).filter(UserModel.email == email).first()
+    def get_user_by_email_address(email_address):
+        result = DBSession.query(UserModel).filter(UserModel.email_address == email_address).first()
         obj = User()
         obj.model = result
         return obj
@@ -72,7 +74,7 @@ class User(object):
         return obj
     @staticmethod
     def get_user_by_identity(identity):
-        result = DBSession.query(UserModel).filter(OR(UserModel.username == identity, UserModel.email == identity, UserModel.uuid == identity)).first()
+        result = DBSession.query(UserModel).filter(OR(UserModel.username == identity, UserModel.email_address == identity, UserModel.uuid == identity)).first()
         obj = User()
         obj.model = result
         return obj
@@ -85,8 +87,8 @@ class User(object):
             objs[result.id].model = result
         return objs
     @staticmethod
-    def create_user(email, username, password, is_active = True, is_deleted = False):
-        result = UserModel(uuid = str(uuid.uuid4()), email = email, username = username, password = password, is_active = is_active, is_deleted = is_deleted, create_date = datetime.utcnow(), update_date = datetime.utcnow())
+    def create_user(email_address, username, password, is_active = True, is_deleted = False):
+        result = UserModel(uuid = str(uuid.uuid4()), email_address = email_address, username = username, password = password, is_active = is_active, is_deleted = is_deleted, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(result)
         obj = User()
         obj.model = result

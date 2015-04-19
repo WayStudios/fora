@@ -1,0 +1,21 @@
+<metal:main use-macro="load: ../layout.pt">
+  <metal:content fill-slot="style">
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="page-header">View Topic</h2>
+    <dl>
+      <dt>UUID</dt><dd tal:content="topic.uuid"/>
+      <dt>Subject</dt><dd tal:content="topic.subject"/>
+      <dt>Content</dt><dd tal:content="topic.content"/>
+      <dt>Create Date</dt><dd tal:content="topic.create_date"/>
+      <dt>Update Date</dt><dd tal:content="topic.update_date"/>
+    </dl>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script>
+      $(document).ready(function() {
+        $("#nav-topics").addClass("active");
+      });
+    </script>
+  </metal:extra>
+</metal:main>

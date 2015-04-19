@@ -18,7 +18,9 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="${request.application_url}/">${fora_site_name}</a></li>
-      </ul>
+        <li id="nav-moderator" tal:condition="session.is_guest == False"><a>${session.username}</a></li>
+        <li id="nav-logout" tal:condition="session.is_guest == False"><a href="#" i18n:translate="logout">Log Out</a></li>
+      </ul
     </div><!--/.nav-collapse -->
   </div>
 </nav>
@@ -34,6 +36,7 @@
         <li id="nav-articles"><a href="${request.application_url}/admin/articles" aria-controls="articles"><i class="fa fa-file-text"></i> Articles</a></li>
         <li id="nav-users"><a href="${request.application_url}/admin/users" aria-controls="users"><i class="fa fa-user"></i> Users</a></li>
         <li id="nav-sites"><a href="${request.application_url}/admin/sites" aria-controls="sites"><i class="fa fa-server"></i> Sites</a></li>
+        <li id="nav-moderators"><a href="${request.application_url}/admin/moderators" aria-controls="moderators"><i class="fa fa-user-secret"></i> Moderators</a></li>
         <li id="nav-configurations"><a href="${request.application_url}/admin/configurations" aria-controls="configurations"><i class="fa fa-cogs"></i> Configurations</a></li>
       </ul>
     </div>

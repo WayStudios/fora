@@ -17,10 +17,10 @@ class RegistrationView(View):
                                                })
         self.title = self.localizer.translate('Registration', domain = 'fora')
     def create_user(self):
-        email = self.json['email']
+        email_address = self.json['email_address']
         username = self.json['username']
         password = self.json['password']
-        User.create_user(email = email, username = username, password = password)
+        User.create_user(email_address = email_address, username = username, password = password)
         value = {
             'status': True
         }

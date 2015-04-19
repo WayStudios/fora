@@ -26,6 +26,7 @@
             "update_date"
           ],
           actions: {
+            create: true,
             view: false,
             edit: true,
             delete: true

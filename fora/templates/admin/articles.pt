@@ -7,7 +7,7 @@
     </style>
   </metal:content>
   <metal:content fill-slot="content">
-    <h2 class="sub-header">Articles</h2>
+    <h2 class="page-header">Articles</h2>
     <div id="datatable-articles" class="table-responsive"></div>
   </metal:content>
   <metal:extra fill-slot="extra">
@@ -23,14 +23,23 @@
             "create_date",
             "update_date"
           ],
-          actions: {
+          modals: {
+            create: false,
             view: false,
+            edit: false
+          },
+          actions: {
+            create: true,
+            view: true,
             edit: true,
             delete: true
           },
           uri: {
             retrieveEntries: "?action=retrieve_articles",
             retrieveEntry: "?action=retrieve_article",
+            viewEntry: "articles/view/{identity}",
+            createEntry: "articles/create/",
+            editEntry: "articles/edit/{identity}",
             deleteEntry: "?action=delete_article"
           }
         });

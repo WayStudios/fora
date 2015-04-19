@@ -46,6 +46,7 @@
       position: fixed;
       top: 40px;
       bottom: 32px;
+      overflow-y: auto;
     }
     #footer {
       height: 32px;
@@ -72,6 +73,8 @@
   <script src="${request.static_url('fora:static/js/ie10-viewport-bug-workaround.js')}"></script>
 
   <script src="${request.static_url('fora:static/js/holder.min.js')}"></script>
+  
+  <script src="${request.static_url('fora:static/js/fora.moderator.js')}"></script>
   <metal:extra define-slot="extra" />
 
   <!-- Bootlint -->

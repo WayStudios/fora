@@ -12,5 +12,5 @@ from sqlalchemy import (
 class SiteForumModel(Model):
     __tablename__ = 'sites_forums'
     id = Column(Integer, primary_key = True, autoincrement = True)
-    site_uuid = Column(String)
-    forum_uuid = Column(String)
+    site = Column(String)
+    forum = Column(String)

@@ -1,12 +1,16 @@
 # fora
 # class AdminSitesView
 # Xu [xw901103@gmail.com] Copyright 2015
-from fora.core.view import View
+from fora.core.adminview import AdminView
 from fora.core.site import Site
 
 from pyramid.renderers import render_to_response
 
-class AdminSitesView(View):
+from pyramid.httpexceptions import (
+    HTTPFound
+)
+
+class AdminSitesView(AdminView):
     """ This class contains the sites administration view of fora.
     """
     def __init__(self, request):
@@ -17,6 +21,17 @@ class AdminSitesView(View):
                                                  'retrieve_site': self.retrieve_site,
                                                  'delete_site': self.delete_site
                                              })
+    def prepare_template(self):
+        if not self.moderator.is_guest():
+            if self.activity == 'view':
+                self.template = 'fora:templates/admin/sites/view.pt'
+            elif self.activity == 'create':
+                self.template = 'fora:templates/admin/sites/create.pt'
+            elif self.activity == 'edit':
+                self.template = 'fora:templates/admin/sites/edit.pt'
+        else:
+            self.exception = HTTPFound(self.request.route_url("admin_portal"))
+        super(AdminSitesView, self).prepare_template()
     def retrieve_sites(self):
         value = {
             'status': True,
