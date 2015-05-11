@@ -1,33 +1,31 @@
 # fora
-==================
 
-Getting Started
----------------
+fora is a WSGI framework for forums.
 
-- cd <directory containing this file>
+## Getting Started ##
+<code>cd directory_containing_this_file</code>
 
-- $VENV/bin/python setup.py develop
+<code>$VENV/bin/python setup.py develop</code>
 
-- $VENV/bin/create_fora_instance -s <scaffold> <instance directory>
+<code>$VENV/bin/create_fora_instance -s scaffold_name instance_directory</code>
 
-- cd <instance directory>
+<code>cd instance_directory</code>
 
-- $VENV/bin/initialize_fora_db development.ini
+<code>$VENV/bin/initialize_fora_db development.ini</code>
 
-- $VENV/bin/pserve development.ini
+<code>$VENV/bin/pserve development.ini</code>
 
-i18n
-----
+## i18n ##
 extract strings
 
-- cd <directory containing this file>
+<code>cd directory_containing_this_file</code>
 
-- $VENV/bin/pot-create -o fora/locales/fora.pot fora
+<code>$VENV/bin/pot-create -o fora/locales/fora.pot fora</code>
 
 generate fora.po for target language
 
-- cd <directory containing this file>
+<code>cd directory_containing_this_file</code>
 
-- cd fora/locales
+<code>cd fora/locales</code>
 
-- msginit -l LANG_CODE -o LANG_CODE/LC_MESSAGES/fora.po
+<code>msginit -l LANG_CODE -o LANG_CODE/LC_MESSAGES/fora.po</code>
