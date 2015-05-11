@@ -1,0 +1,18 @@
+<metal:main use-macro="load: ../layout.pt">
+  <metal:content fill-slot="style">
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="page-header">View Configuration</h2>
+    <dl>
+      <dt>Create Date</dt><dd tal:content="configuration.create_date"/>
+      <dt>Update Date</dt><dd tal:content="configuration.update_date"/>
+    </dl>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script>
+      $(document).ready(function() {
+        $("#nav-configurations").addClass("active");
+      });
+    </script>
+  </metal:extra>
+</metal:main>

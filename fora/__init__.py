@@ -7,6 +7,8 @@ from sqlalchemy import engine_from_config
 
 from fora.core.dbsession import DBSession
 from fora.core.model import Model
+from fora.core.view import View
+from fora.core.adminview import AdminView
 
 from fora.views.install import InstallView
 
@@ -38,9 +40,13 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind = engine)
     Model.metadata.bind = engine
-    config = Configurator(settings = settings, session_factory = SignedCookieSessionFactory(secret = settings['fora.session.secret'], salt = 'fora.session'))
+    View.path['static'] = settings['path.static']
+    View.path['templates'] = settings['path.templates']
+    AdminView.path['static'] = settings['path.static']
+    AdminView.path['templates'] = '%(path)s/admin' % {'path': settings['path.templates']}
+    config = Configurator(settings = settings, session_factory = SignedCookieSessionFactory(secret = settings['session.secret'], salt = 'fora.session'))
     config.include('pyramid_chameleon')
-    config.add_static_view('static', 'static', cache_max_age = 3600)
+    config.add_static_view('static', settings['path.static'], cache_max_age = 3600)
     config.add_forbidden_view(view = ForbiddenView)
     config.add_notfound_view(view = NotFoundView)
     config.add_route('install', '/install')
@@ -95,6 +101,6 @@ def main(global_config, **settings):
     config.add_view(view = AdminConfigurationsView, route_name = 'admin_configurations')
     config.add_route('admin_configurations_activity', '/admin/configurations/{activity}/{identity:.*}')
     config.add_view(view = AdminConfigurationsView, route_name = 'admin_configurations_activity')
-    config.add_translation_dirs('fora:locales')
+    config.add_translation_dirs(settings['path.locales'])
     config.scan()
     return config.make_wsgi_app()

@@ -1,0 +1,48 @@
+<metal:main use-macro="load: layout.pt">
+  <metal:content fill-slot="style">
+    <style>
+      td {
+        vertical-align: middle !important;
+      }
+    </style>
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="page-header">Moderators</h2>
+    <div id="datatable-moderators" class="table-responsive"></div>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script src="${request.static_url('%(path)s/js/jquery-ui.widget.min.js' % {'path': path['static']})}"></script>
+    <script src="${request.static_url('%(path)s/js/fora.datatable.js' % {'path': path['static']})}"></script>
+    <script>
+      $(document).ready(function() {
+        $("#nav-moderators").addClass("active");
+        $("#datatable-moderators").datatable({
+          columns: [
+            "id",
+            "username",
+            "email_address"
+          ],
+          modals: {
+            create: false,
+            view: false,
+            edit: false
+          },
+          actions: {
+            create: true,
+            view: false,
+            edit: true,
+            delete: true
+          },
+          uri: {
+            retrieveEntries: "?action=retrieve_moderators",
+            retrieveEntry: "?action=retrieve_moderator",
+            viewEntry: "moderators/view/{identity}",
+            createEntry: "moderators/create/",
+            editEntry: "moderators/edit/{identity}",
+            deleteEntry: "?action=delete_moderator"
+          }
+        });
+      });
+    </script>
+  </metal:extra>
+</metal:main>

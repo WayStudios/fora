@@ -9,6 +9,10 @@ from fora.core.user import User
 class AdminView(object):
     """ This class contains the general administration view object functionality of fora.
     """
+    path = {
+        'static': '',
+        'templates': ''
+    }
     title = None
     request = None
     session = None
@@ -31,6 +35,7 @@ class AdminView(object):
         except:
             self.json = None
         self.template = template
+        self.value['path'] = self.path
         self.actions = actions
         if 'activity' in request.matchdict:
             self.activity = request.matchdict['activity']

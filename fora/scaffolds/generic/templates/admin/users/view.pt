@@ -1,0 +1,31 @@
+<metal:main use-macro="load: ../layout.pt">
+  <metal:content fill-slot="style">
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="page-header">View User</h2>
+    <dl>
+      <dt>UUID</dt><dd tal:content="user.uuid"/>
+      <dt>Username</dt><dd tal:content="user.username"/>
+      <dt>E-Mail Address</dt><dd tal:content="user.email_address"/>
+      <dt>Is Active</dt>
+      <dd>
+        <span class="text-success" tal:condition="user.is_active == True">TRUE</span>
+        <span class="text-danger" tal:condition="user.is_active == False">FALSE</span>
+      </dd>
+      <dt>Is Deleted</dt>
+      <dd>
+        <span class="text-success" tal:condition="user.is_deleted == True">TRUE</span>
+        <span class="text-danger" tal:condition="user.is_deleted == False">FALSE</span>
+      </dd>
+      <dt>Create Date</dt><dd tal:content="user.create_date"/>
+      <dt>Update Date</dt><dd tal:content="user.update_date"/>
+    </dl>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script>
+      $(document).ready(function() {
+        $("#nav-users").addClass("active");
+      });
+    </script>
+  </metal:extra>
+</metal:main>

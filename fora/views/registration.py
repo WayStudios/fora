@@ -10,8 +10,9 @@ class RegistrationView(View):
     """ This class contains the registration view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/registration.pt' % {'path': View.path['templates']}
         super(RegistrationView, self).__init__(request = request,
-                                               template = 'fora:templates/registration.pt',
+                                               template = template,
                                                actions = {
                                                    'create_user': self.create_user
                                                })

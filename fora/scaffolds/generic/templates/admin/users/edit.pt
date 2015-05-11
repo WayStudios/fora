@@ -1,0 +1,102 @@
+<metal:main use-macro="load: ../layout.pt" i18n:domain="fora">
+  <metal:content fill-slot="style">
+    <style>
+      #alert-edit-user-username-exists,
+      #alert-edit-user-email-address-exists,
+      #alert-edit-user-password-mismatch,
+      #alert-edit-user-unknow-issue {
+        display: none;
+      }
+    </style>
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="page-header">Edit User</h2>
+    <form id="form-edit-user" class="form-horizontal">
+      <div class="form-group">
+        <label for="input-username" class="col-sm-2 control-label">Username</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="input-username" placeholder="Username" i18n:attributes="placeholder username" value="${user.username}" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input-email-address" class="col-sm-2 control-label">E-mail address</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="input-email-address" placeholder="Email address" i18n:attributes="placeholder email_address" value="${user.email_address}" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input-password" class="col-sm-2 control-label">New password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="input-password" placeholder="New password" i18n:attributes="placeholder new_password" required>
+          <span class="help-block">Please leave it empty if you do not wish to change the password.</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input-confirm-password" class="col-sm-2 control-label">Confirm password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="input-confirm-password" placeholder="Confirm password" i18n:attributes="placeholder confirm_password" required>
+        </div>
+      </div>
+    </form>
+    <div id="alert-edit-user-username-exists" class="alert alert-danger" role="alert" i18n:translate="username_exists">Username exists</div>
+    <div id="alert-edit-user-email-address-exists" class="alert alert-danger" role="alert" i18n:translate="email_address_exists">E-Mail address exists</div>
+    <div id="alert-edit-user-password-mismatch" class="alert alert-danger" role="alert" i18n:translate="password_mismatch">Password mismatch</div>
+    <div id="alert-edit-user-unknow-issue" class="alert alert-danger" role="alert" i18n:translate="unknow_issue">Unknow issue</div>
+    <button id="submit-form-edit-user" type="button" class="btn btn-primary" i18n:translate="submit">Submit</button>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script>
+      $(document).ready(function() {
+        $("#nav-users").addClass("active");
+        $("#submit-form-edit-user").click(function(event) {
+          event.preventDefault();
+          var username = $("#input-username").val();
+          var emailAddress = $("#input-email-address").val();
+          var password = $("#input-password").val();
+          var confirmPassword = $("#input-confirm-password").val();
+
+          if (password != confirmPassword) {
+            $(".alert").hide();
+            $("#alert-edit-user-password-mismatch").show();
+          } else {
+            $(".alert").hide();
+            var json = {
+              uuid: "${user.uuid}",
+              username: username,
+              email_address: emailAddress
+            };
+            if (password !== "") {
+              json['password'] = password;
+            }
+            $.ajax({
+              url: "${request.application_url}/admin/users?action=edit_user",
+              type: "POST",
+              data: JSON.stringify(json),
+              contentType: "application/json; charaset=utf-8",
+              success: function(data) {
+                if (data.status) {
+                  document.location = "${request.application_url}/admin/users";
+                } else {
+                  switch(data.error) {
+                    case 1:
+                      $("#alert-edit-user-username-exists").show();
+                      break;
+                    case 2:
+                      $("#alert-edit-user-email-address-exists").show();
+                      break;
+                    default:
+                      $("#alert-edit-user-unknow-issue").show();
+                      break;
+                  }
+                }
+              },
+              error: function(data) {
+                $("#alert-edit-user-unknow-issue").show();
+              }
+            });
+          }
+        });
+      });
+    </script>
+  </metal:extra>
+</metal:main>

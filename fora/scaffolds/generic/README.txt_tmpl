@@ -1,0 +1,11 @@
+{{instance}} README
+==================
+
+Getting Started
+---------------
+
+- cd <directory containing this file>
+
+- $VENV/bin/initialize_fora_db production.ini
+
+- $VENV/bin/pserve production.ini

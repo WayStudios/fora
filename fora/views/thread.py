@@ -16,8 +16,9 @@ class ThreadView(View):
     """ This class contains the thread view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/thread.pt' % {'path': View.path['templates']}
         super(ThreadView, self).__init__(request = request,
-                                        template = 'fora:templates/thread.pt',
+                                        template = template,
                                         actions = {
                                         })
         self.title = self.localizer.translate('Thread', domain = 'fora')
@@ -30,7 +31,9 @@ class ThreadView(View):
             self.title = self.localizer.translate('Thread ${thread_subject}', domain = 'fora', mapping = {'thread_subject': thread.subject()})
             self.value['thread'] = {
                 'id': thread.id(),
+                'is_anonymous': True,
                 'author': thread.author(),
+                'username': thread.author(),
                 'subject': thread.subject(),
                 'content': thread.content(),
                 'create_date': thread.create_date().strftime('%Y-%m-%d %H:%M:%S'),
@@ -39,5 +42,6 @@ class ThreadView(View):
             if not thread.is_anonymous():
                 user = User.get_user_by_identity(thread.author())
                 if not user.is_guest():
+                    self.value['thread']['is_anonymous'] = False
                     self.value['thread']['username'] = user.username()
         super(ThreadView, self).prepare_template()

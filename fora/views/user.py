@@ -15,8 +15,9 @@ class UserView(View):
     """ This class contains the user view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/user.pt' % {'path': View.path['templates']}
         super(UserView, self).__init__(request = request,
-                                       template = 'fora:templates/user.pt',
+                                       template = template,
                                        actions = {
                                            'login_user': self.login_user,
                                            'logout_user': self.logout_user,

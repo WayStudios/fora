@@ -13,8 +13,9 @@ class AdminDashboardView(AdminView):
     """ This class contains the administration dashboard view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/dashboard.pt' % {'path': AdminView.path['templates']}
         super(AdminDashboardView, self).__init__(request = request,
-                                                 template = 'fora:templates/admin/dashboard.pt',
+                                                 template = template,
                                                  actions = {
                                                  })
     def prepare_template(self):

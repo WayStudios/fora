@@ -1,0 +1,43 @@
+<metal:main use-macro="load: layout.pt">
+  <metal:content fill-slot="style">
+    <style>
+      td {
+        vertical-align: middle !important;
+      }
+    </style>
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="sub-header">Forums</h2>
+    <div id="datatable-forums" class="table-responsive"></div>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script src="${request.static_url('%(path)s/js/jquery-ui.widget.min.js' % {'path': path['static']})}"></script>
+    <script src="${request.static_url('%(path)s/js/fora.datatable.js' % {'path': path['static']})}"></script>
+    <script>
+      $(document).ready(function() {
+        $("#nav-forums").addClass("active");
+        $("#datatable-forums").datatable({
+          columns: [
+            "id",
+            "title",
+            "is_active",
+            "is_deleted",
+            "create_date",
+            "update_date"
+          ],
+          actions: {
+            create: true,
+            view: false,
+            edit: true,
+            delete: true
+          },
+          uri: {
+            retrieveEntries: "?action=retrieve_forums",
+            retrieveEntry: "?action=retrieve_forum",
+            deleteEntry: "?action=delete_forum"
+          }
+        });
+      });
+    </script>
+  </metal:extra>
+</metal:main>

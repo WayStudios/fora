@@ -38,11 +38,11 @@ class User(object):
         if not new_password:
             return self.model.password
         self.model.password = new_password
-    def is_active(self, new_is_active):
+    def is_active(self, new_is_active = None):
         if not new_is_active:
             return self.model.is_active
         self.model.is_active = new_is_active
-    def is_deleted(self, new_is_deleted):
+    def is_deleted(self, new_is_deleted = None):
         if not new_is_deleted:
             return self.model.is_deleted
         self.model.is_deleted = new_is_deleted
@@ -87,7 +87,7 @@ class User(object):
             objs[result.id].model = result
         return objs
     @staticmethod
-    def create_user(email_address, username, password, is_active = True, is_deleted = False):
+    def create_user(username, email_address, password, is_active = True, is_deleted = False):
         result = UserModel(uuid = str(uuid.uuid4()), email_address = email_address, username = username, password = password, is_active = is_active, is_deleted = is_deleted, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(result)
         obj = User()

@@ -1,0 +1,274 @@
+#
+# Chinese translations for PACKAGE package
+# This file is distributed under the same license as the PACKAGE package.
+# Xu Waycell <xw901103@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE 1.0\n"
+"POT-Creation-Date: 2015-04-16 23:06+0800\n"
+"PO-Revision-Date: 2015-04-17 01:01+0800\n"
+"Last-Translator: Xu Waycell <xw901103@gmail.com>\n"
+"Language-Team: Chinese\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Lingua 3.9\n"
+"X-Generator: Poedit 1.7.5\n"
+
+#. Default: Home
+#: fora/templates/article.pt:6 fora/templates/forbidden.pt:13
+#: fora/templates/forum.pt:6 fora/templates/header.pt:14
+#: fora/templates/notfound.pt:6 fora/templates/registration.pt:8
+#: fora/templates/thread.pt:8 fora/templates/topic.pt:8
+#: fora/templates/user.pt:8
+msgid "home"
+msgstr ""
+
+#. Default: Article ${article_title}
+#: fora/templates/article.pt:7
+msgid "breadcrumb_article"
+msgstr ""
+
+#. Default: Article ${article_title}
+#: fora/templates/article.pt:13
+msgid "article_panel_title"
+msgstr ""
+
+#. Default: Login
+#: fora/templates/footer.pt:9 fora/templates/header.pt:25
+msgid "login"
+msgstr ""
+
+#. Default: Username
+#: fora/templates/footer.pt:14 fora/templates/registration.pt:25
+msgid "username"
+msgstr ""
+
+#. Default: Password
+#: fora/templates/footer.pt:17 fora/templates/registration.pt:28
+msgid "password"
+msgstr ""
+
+#. Default: Remember me
+#: fora/templates/footer.pt:21
+msgid "remember_me"
+msgstr ""
+
+#. Default: Register
+#: fora/templates/footer.pt:27
+msgid "register"
+msgstr ""
+
+#. Default: Submit
+#: fora/templates/footer.pt:28 fora/templates/forum.pt:52
+#: fora/templates/registration.pt:42 fora/templates/topic.pt:52
+msgid "submit"
+msgstr ""
+
+#. Default: fora 2015 created by Xu
+#: fora/templates/footer.pt:36
+msgid "fora_created_by"
+msgstr ""
+
+#. Default: 403 Forbidden
+#: fora/templates/forbidden.pt:14 fora/templates/forbidden.pt:21
+msgid "403_forbidden"
+msgstr ""
+
+#. Default: <dynamic element> <dynamic element> <dynamic element> <dynamic
+#. element>
+#: fora/templates/forbidden.pt:24
+msgid "403_forbidden_message"
+msgstr ""
+
+#. Default: Exception
+#: fora/templates/forbidden.pt:31 fora/templates/notfound.pt:21
+msgid "exception_panel_footer_message"
+msgstr ""
+
+#. Default: Forum ${forum_title}
+#: fora/templates/forum.pt:7
+msgid "breadcrumb_forum"
+msgstr ""
+
+msgid "Topic"
+msgstr "主题"
+
+msgid "Topic ${topic_subject}"
+msgstr "主题 ${topic_subject}"
+
+#. Default: Forum ${forum_title}
+#: fora/templates/forum.pt:14
+msgid "topics_panel_title"
+msgstr ""
+
+#. Default: Come back for more!
+#: fora/templates/forum.pt:25
+msgid "topics_panel_footer_message"
+msgstr ""
+
+#. Default: Create topic
+#: fora/templates/forum.pt:32
+msgid "create_topic"
+msgstr ""
+
+#. Default: Subject
+#: fora/templates/forum.pt:38 fora/templates/topic.pt:38
+msgid "subject"
+msgstr ""
+
+#. Default: Type your topic contents here.
+#: fora/templates/forum.pt:41
+msgid "type_topic_contents_here"
+msgstr ""
+
+#. Default: I accept the forum policies.
+#: fora/templates/forum.pt:45 fora/templates/topic.pt:45
+msgid "accept_policies"
+msgstr ""
+
+#. Default: Toggle navigation
+#: fora/templates/header.pt:5
+msgid "toggle_navigation"
+msgstr ""
+
+#. Default: fora - Install
+#: fora/templates/install.pt:11
+msgid "fora_install_title"
+msgstr ""
+
+#. Default: Install fora
+#: fora/templates/install.pt:49
+msgid "install_fora"
+msgstr ""
+
+#. Default: 404 Not Found
+#: fora/templates/notfound.pt:7 fora/templates/notfound.pt:14
+msgid "404_not_found"
+msgstr ""
+
+#. Default: <dynamic element>
+#: fora/templates/notfound.pt:17
+msgid "404_not_found_message"
+msgstr ""
+
+#. Default: Forums
+#: fora/templates/portal.pt:7
+msgid "forums"
+msgstr ""
+
+#. Default: Here lies the available forums.
+#: fora/templates/portal.pt:11
+msgid "forums_panel_header_message"
+msgstr ""
+
+#. Default: Come back for more!
+#: fora/templates/portal.pt:18
+msgid "forums_panel_footer_message"
+msgstr ""
+
+#. Default: User Registration
+#: fora/templates/registration.pt:9 fora/templates/registration.pt:16
+msgid "user_registration"
+msgstr ""
+
+#. Default: Email address
+#: fora/templates/registration.pt:22
+msgid "email_address"
+msgstr ""
+
+#. Default: Confirm password
+#: fora/templates/registration.pt:31
+msgid "confirm_password"
+msgstr ""
+
+#. Default: I have accepted the privacy and useage policies.
+#: fora/templates/registration.pt:35
+msgid "accept_registration_policies"
+msgstr ""
+
+#. Default: Thread ${thread_subject}
+#: fora/templates/thread.pt:9
+msgid "breadcrumb_thread"
+msgstr ""
+
+#. Default: Thread ${thread_subject}
+#: fora/templates/thread.pt:16
+msgid "thread_panel_title"
+msgstr ""
+
+#. Default: Come back for more!
+#: fora/templates/thread.pt:40
+msgid "thread_panel_footer_message"
+msgstr ""
+
+#. Default: Topic ${topic_subject}
+#: fora/templates/topic.pt:9
+msgid "breadcrumb_topic"
+msgstr ""
+
+#. Default: Topic ${topic_subject}
+#: fora/templates/topic.pt:16
+msgid "threads_panel_title"
+msgstr ""
+
+#. Default: Come back for more!
+#: fora/templates/topic.pt:27
+msgid "threads_panel_footer_message"
+msgstr ""
+
+#. Default: Reply topic
+#: fora/templates/topic.pt:33
+msgid "reply_topic"
+msgstr ""
+
+#. Default: Type your thread contents here.
+#: fora/templates/topic.pt:41
+msgid "type_thread_contents_here"
+msgstr ""
+
+#. Default: User ${user_username}
+#: fora/templates/user.pt:9
+msgid "breadcrumb_user"
+msgstr ""
+
+#. Default: User ${user_username}
+#: fora/templates/user.pt:16
+msgid "user_panel_title"
+msgstr ""
+
+#. Default: User information
+#: fora/templates/user.pt:30
+msgid "user_panel_footer_message"
+msgstr ""
+
+#: fora/views/article.py:24
+msgid "Article"
+msgstr ""
+
+#: fora/views/article.py:31
+#, c-format
+msgid "Article %s"
+msgstr ""
+
+#: fora/views/forbidden.py:16
+msgid "403 Forbidden"
+msgstr ""
+
+#: fora/views/install.py:17
+msgid "Install"
+msgstr ""
+
+#: fora/views/registration.py:20
+msgid "Registration"
+msgstr ""
+
+#: fora/views/thread.py:24
+msgid "Thread"
+msgstr ""
+
+#: fora/views/thread.py:31
+#, c-format
+msgid "Thread %s"
+msgstr ""

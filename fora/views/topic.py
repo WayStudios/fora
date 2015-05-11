@@ -19,8 +19,9 @@ class TopicView(View):
     """ This class contains the topic view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/topic.pt' % {'path': View.path['templates']}
         super(TopicView, self).__init__(request = request,
-                                        template = 'fora:templates/topic.pt',
+                                        template = template,
                                         actions = {
                                             'retrieve_threads': self.retrieve_threads,
                                             'reply_topic': self.reply_topic,

@@ -19,8 +19,9 @@ class ForumView(View):
     """ This class contains the forum view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/forum.pt' % {'path': View.path['templates']}
         super(ForumView, self).__init__(request = request,
-                                        template = 'fora:templates/forum.pt',
+                                        template = template,
                                         actions = {
                                             'retrieve_topics': self.retrieve_topics,
                                             'create_topic': self.create_topic,

@@ -9,6 +9,10 @@ from fora.core.user import User
 class View(object):
     """ This class contains the general view object functionality of fora.
     """
+    path = {
+        'static': '',
+        'templates': ''
+    }
     title = None
     request = None
     session = None
@@ -30,6 +34,7 @@ class View(object):
         except:
             self.json = None
         self.template = template
+        self.value['path'] = self.path
         self.actions = actions
     def prepare_template(self):
         self.configurations['fora_site_name'] = Configuration.get_configuration_by_name('fora_site_name')

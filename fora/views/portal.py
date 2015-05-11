@@ -10,8 +10,9 @@ class PortalView(View):
     """ This class contains the home portal view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/portal.pt' % {'path': View.path['templates']}
         super(PortalView, self).__init__(request = request,
-                                         template = 'fora:templates/portal.pt',
+                                         template = template,
                                          actions = {
                                              'retrieve_forums': self.retrieve_forums
                                          })

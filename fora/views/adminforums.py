@@ -14,8 +14,9 @@ class AdminForumsView(AdminView):
     """ This class contains the forums administration view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/forums.pt' % {'path': AdminView.path['templates']}
         super(AdminForumsView, self).__init__(request = request,
-                                              template = 'fora:templates/admin/forums.pt',
+                                              template = template,
                                               actions = {
                                                   'retrieve_forums': self.retrieve_forums,
                                                   'retrieve_forum': self.retrieve_forum,
@@ -26,11 +27,11 @@ class AdminForumsView(AdminView):
     def prepare_template(self):
         if not self.moderator.is_guest():
             if self.activity == 'view':
-                self.template = 'fora:templates/admin/forums/view.pt'
+                self.template = '%(path)s/forums/view.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'create':
-                self.template = 'fora:templates/admin/forums/create.pt'
+                self.template = '%(path)s/forums/create.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'edit':
-                self.template = 'fora:templates/admin/forums/edit.pt'
+                self.template = '%(path)s/forums/edit.pt' % {'path': AdminView.path['templates']}
         else:
             self.exception = HTTPFound(self.request.route_url("admin_portal"))
         super(AdminForumsView, self).prepare_template()

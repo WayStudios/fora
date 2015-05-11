@@ -7,8 +7,9 @@ class InstallView(View):
     """ This class contains the install view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/install.pt' % {'path': View.path['templates']}
         super(InstallView, self).__init__(request = request,
-                                          template = 'fora:templates/install.pt',
+                                          template = template,
                                           actions = {
                                               'start_installation': self.start_installation
                                           })

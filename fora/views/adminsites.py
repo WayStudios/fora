@@ -14,8 +14,9 @@ class AdminSitesView(AdminView):
     """ This class contains the sites administration view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/sites.pt' % {'path': AdminView.path['templates']}
         super(AdminSitesView, self).__init__(request = request,
-                                             template = 'fora:templates/admin/sites.pt',
+                                             template = template,
                                              actions = {
                                                  'retrieve_sites': self.retrieve_sites,
                                                  'retrieve_site': self.retrieve_site,
@@ -24,11 +25,11 @@ class AdminSitesView(AdminView):
     def prepare_template(self):
         if not self.moderator.is_guest():
             if self.activity == 'view':
-                self.template = 'fora:templates/admin/sites/view.pt'
+                self.template = '%(path)s/sites/view.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'create':
-                self.template = 'fora:templates/admin/sites/create.pt'
+                self.template = '%(path)s/sites/create.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'edit':
-                self.template = 'fora:templates/admin/sites/edit.pt'
+                self.template = '%(path)s/sites/edit.pt' % {'path': AdminView.path['templates']}
         else:
             self.exception = HTTPFound(self.request.route_url("admin_portal"))
         super(AdminSitesView, self).prepare_template()

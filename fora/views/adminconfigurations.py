@@ -14,8 +14,9 @@ class AdminConfigurationsView(AdminView):
     """ This class contains the configurations administration view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/configurations.pt' % {'path': AdminView.path['templates']}
         super(AdminConfigurationsView, self).__init__(request = request,
-                                                      template = 'fora:templates/admin/configurations.pt',
+                                                      template = template,
                                                       actions = {
                                                           'retrieve_configurations': self.retrieve_configurations,
                                                           'retrieve_configuration': self.retrieve_configuration,
@@ -24,11 +25,11 @@ class AdminConfigurationsView(AdminView):
     def prepare_template(self):
         if not self.moderator.is_guest():
             if self.activity == 'view':
-                self.template = 'fora:templates/admin/configurations/view.pt'
+                self.template = '%(path)s/configurations/view.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'create':
-                self.template = 'fora:templates/admin/configurations/create.pt'
+                self.template = '%(path)s/configurations/create.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'edit':
-                self.template = 'fora:templates/admin/configurations/edit.pt'
+                self.template = '%(path)s/configurations/edit.pt' % {'path': AdminView.path['templates']}
         else:
             self.exception = HTTPFound(self.request.route_url("admin_portal"))
         super(AdminConfigurationsView, self).prepare_template()

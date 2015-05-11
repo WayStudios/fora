@@ -15,8 +15,9 @@ class ArticleView(View):
     """ This class contains the article view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/article.pt' % {'path': View.path['templates']}
         super(ArticleView, self).__init__(request = request,
-                                          template = 'fora:templates/article.pt',
+                                          template = template,
                                           actions = {
                                           })
         self.title = self.localizer.translate('Article', domain = 'fora')

@@ -41,9 +41,12 @@ setup(name='fora',
       test_suite='fora',
       install_requires=requires,
       entry_points="""\
+      [fora.scaffold]
+      generic = fora.scaffolds:GenericInstanceTemplate
       [paste.app_factory]
       main = fora:main
       [console_scripts]
       initialize_fora_db = fora.scripts.initializedb:main
+      create_fora_instance = fora.scripts.createinstance:main
       """,
       )

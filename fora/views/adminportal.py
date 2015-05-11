@@ -14,8 +14,9 @@ class AdminPortalView(AdminView):
     """ This class contains the administration portal view of fora.
     """
     def __init__(self, request):
+        template = '%(path)s/portal.pt' % {'path': AdminView.path['templates']}
         super(AdminPortalView, self).__init__(request = request,
-                                              template = 'fora:templates/admin/portal.pt',
+                                              template = template,
                                               actions = {
                                                   'login_moderator': self.login_moderator,
                                                   'logout_moderator': self.logout_moderator

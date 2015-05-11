@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="${request.locale_name}" metal:define-macro="layout" i18n:domain="fora">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="fora">
+    <meta name="author" content="Xu [xw901103@gmail.com]">
+    <link rel="shortcut icon" href="${request.static_url('%(path)s/favicon.png' % {'path': path['static']})}">
+
+    <title>${title}</title>
+
+    <!-- bootstrap core CSS -->
+    <link href="${request.static_url('%(path)s/css/bootstrap.min.css' % {'path': path['static']})}" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link href="${request.static_url('%(path)s/css/font-awesome.min.css' % {'path': path['static']})}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="${request.static_url('%(path)s/css/bootstrap-themes/superhero.min.css' % {'path': path['static']})}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="${request.static_url('%(path)s/js/html5shiv.min.js' % {'path': path['static']})}"></script>
+      <script src="${request.static_url('%(path)s/js/respond.min.js' % {'path': path['static']})}"></script>
+    <![endif]-->
+
+    <style>
+      #content-container {
+        margin-top: 61px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      #container-breadcrumb {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      #alert-login-invalid-credential, #alert-login-success {
+        display: none;
+      }
+    </style>
+    <metal:style define-slot="style" />
+  </head>
+  <body>
+
+    <metal:header define-slot="header" use-macro="load: header.pt" />
+    <div id="content-container" class="container">
+      <metal:content define-slot="content" />
+    </div>
+    <metal:footer define-slot="footer" use-macro="load: footer.pt" />
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="${request.static_url('%(path)s/js/jquery.min.js' % {'path': path['static']})}"></script>
+    <script src="${request.static_url('%(path)s/js/bootstrap.min.js' % {'path': path['static']})}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="${request.static_url('%(path)s/js/ie10-viewport-bug-workaround.js' % {'path': path['static']})}"></script>
+
+    <script src="${request.static_url('%(path)s/js/holder.min.js' % {'path': path['static']})}"></script>
+
+    <script src="${request.static_url('%(path)s/js/fora.user.js' % {'path': path['static']})}"></script>
+    <metal:extra define-slot="extra" />
+
+    <!-- Bootlint -->
+    <script>
+      //javascript:(function(){var s=document.createElement("script");s.onload=function(){bootlint.showLintReportForCurrentDocument([]);};s.src="${request.static_url('%(path)s/js/bootlint.min.js' % {'path': path['static']})}";document.body.appendChild(s)})();
+    </script>
+  </body>
+</html>

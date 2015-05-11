@@ -16,8 +16,9 @@ class AdminTopicsView(AdminView):
     """
     identity = None
     def __init__(self, request):
+        template = '%(path)s/topics.pt' % {'path': AdminView.path['templates']}
         super(AdminTopicsView, self).__init__(request = request,
-                                              template = 'fora:templates/admin/topics.pt',
+                                              template = template,
                                               actions = {
                                                   'retrieve_topics': self.retrieve_topics,
                                                   'retrieve_topic': self.retrieve_topic,
@@ -37,11 +38,11 @@ class AdminTopicsView(AdminView):
                     'create_date': topic.create_date().strftime('%Y-%m-%d %H:%M:%S'),
                     'update_date': topic.update_date().strftime('%Y-%m-%d %H:%M:%S')
                 }
-                self.template = 'fora:templates/admin/topics/view.pt'
+                self.template = '%(path)s/topics/view.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'create':
-                self.template = 'fora:templates/admin/topics/create.pt'
+                self.template = '%(path)s/topics/create.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'edit':
-                self.template = 'fora:templates/admin/topics/edit.pt'
+                self.template = '%(path)s/topics/edit.pt' % {'path': AdminView.path['templates']}
         else:
             self.exception = HTTPFound(self.request.route_url("admin_portal"))
         super(AdminTopicsView, self).prepare_template()

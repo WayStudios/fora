@@ -1,0 +1,113 @@
+<metal:main use-macro="load: ../layout.pt">
+  <metal:content fill-slot="style">
+    <style>
+      #alert-create-user-empty-username,
+      #alert-create-user-username-exists,
+      #alert-create-user-empty-email-address,
+      #alert-create-user-email-address-exists,
+      #alert-create-user-empty-password,
+      #alert-create-user-password-mismatch,
+      #alert-create-user-unknow-issue {
+        display: none;
+      }
+    </style>
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="page-header">Create User</h2>
+    <form id="form-create-user" class="form-horizontal">
+      <div class="form-group">
+        <label for="input-username" class="col-sm-2 control-label">Username</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="input-username" placeholder="Username" i18n:attributes="placeholder username" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input-email-address" class="col-sm-2 control-label">E-mail address</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="input-email-address" placeholder="Email address" i18n:attributes="placeholder email_address" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input-password" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="input-password" placeholder="Password" i18n:attributes="placeholder password" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input-confirm-password" class="col-sm-2 control-label">Confirm password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="input-confirm-password" placeholder="Confirm password" i18n:attributes="placeholder confirm_password" required>
+        </div>
+      </div>
+    </form>
+    <div id="alert-create-user-empty-username" class="alert alert-danger" role="alert" i18n:translate="empty_username">Empty username</div>
+    <div id="alert-create-user-username-exists" class="alert alert-danger" role="alert" i18n:translate="username_exists">Username exists</div>
+    <div id="alert-create-user-empty-email-address" class="alert alert-danger" role="alert" i18n:translate="empty_email_address">Empty e-mail address</div>
+    <div id="alert-create-user-email-address-exists" class="alert alert-danger" role="alert" i18n:translate="email_address_exists">E-mail address exists</div>
+    <div id="alert-create-user-empty-password" class="alert alert-danger" role="alert" i18n:translate="empty_password">Empty password</div>
+    <div id="alert-create-user-password-mismatch" class="alert alert-danger" role="alert" i18n:translate="password_mismatch">Password mismatch</div>
+    <div id="alert-create-user-unknow-issue" class="alert alert-danger" role="alert" i18n:translate="unknow_issue">Unknow issue</div>
+    <button id="submit-form-create-user" type="button" class="btn btn-primary" i18n:translate="submit">Submit</button>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script>
+      $(document).ready(function() {
+        $("#nav-users").addClass("active");
+        $("#submit-form-create-user").click(function( event ) {
+          event.preventDefault();
+          var username = $("#input-username").val();
+          var emailAddress = $("#input-email-address").val();
+          var password = $("#input-password").val();
+          var confirmPassword = $("#input-confirm-password").val();
+
+          if (username == "") {
+            $(".alert").hide();
+            $("#alert-create-user-empty-username").show();
+          } else if (emailAddress == "") {
+            $(".alert").hide();
+            $("#alert-create-user-empty-email-address").show();
+          } else if (password == "") {
+            $(".alert").hide();
+            $("#alert-create-user-empty-password").show();
+          } else if (password != confirmPassword) {
+            $(".alert").hide();
+            $("#alert-create-user-password-mismatch").show();
+          } else {
+            $(".alert").hide();
+            var json = {
+              username: username,
+              email_address: emailAddress,
+              password: password
+            };
+            $.ajax({
+              url: "${request.application_url}/admin/users?action=create_user",
+              type: "POST",
+              data: JSON.stringify(json),
+              contentType: "application/json; charaset=utf-8",
+              success: function(data) {
+                if (data.status) {
+                  document.location = "${request.application_url}/admin/users";
+                } else {
+                  switch(data.error) {
+                    case 1:
+                      $("#alert-create-user-username-exists").show();
+                      break;
+                    case 2:
+                      $("#alert-create-user-email-address-exists").show();
+                      break;
+                    default:
+                      $("#alert-create-user-unknow-issue").show();
+                      break;
+                  }
+                }
+              },
+              error: function(data) {
+                $("#alert-create-user-unknow-issue").show();
+              }
+            });
+          }
+        });
+      });
+    </script>
+  </metal:extra>
+</metal:main>

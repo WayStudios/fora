@@ -16,8 +16,9 @@ class AdminThreadsView(AdminView):
     """
     identity = None
     def __init__(self, request):
+        template = '%(path)s/threads.pt' % {'path': AdminView.path['templates']}
         super(AdminThreadsView, self).__init__(request = request,
-                                               template = 'fora:templates/admin/threads.pt',
+                                               template = template,
                                                actions = {
                                                    'retrieve_threads': self.retrieve_threads,
                                                    'retrieve_thread': self.retrieve_thread,
@@ -43,11 +44,11 @@ class AdminThreadsView(AdminView):
                 if not thread.is_anonymous():
                     user = User.get_user_by_identity(thread.author())
                     self.value['thread']['username'] = user.username()
-                self.template = 'fora:templates/admin/threads/view.pt'
+                self.template = '%(path)s/threads/view.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'create':
-                self.template = 'fora:templates/admin/threads/create.pt'
+                self.template = '%(path)s/threads/create.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'edit':
-                self.template = 'fora:templates/admin/threads/edit.pt'
+                self.template = '%(path)s/threads/edit.pt' % {'path': AdminView.path['templates']}
         else:
             self.exception = HTTPFound(self.request.route_url("admin_portal"))
         super(AdminThreadsView, self).prepare_template()
