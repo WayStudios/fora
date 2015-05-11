@@ -8,6 +8,10 @@ Getting Started
 
 - $VENV/bin/python setup.py develop
 
+- $VENV/bin/create_fora_instance -s <scaffold> <instance directory>
+
+- cd <instance directory>
+
 - $VENV/bin/initialize_fora_db development.ini
 
 - $VENV/bin/pserve development.ini
