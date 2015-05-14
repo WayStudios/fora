@@ -4,6 +4,10 @@
   <metal:content fill-slot="content">
     <h2 class="page-header">View Configuration</h2>
     <dl>
+      <dt>UUID</dt><dd tal:content="configuration.uuid"/>
+      <dt>Type</dt><dd tal:content="configuration.type"/>
+      <dt>Name</dt><dd tal:content="configuration.name"/>
+      <dt>Value</dt><dd tal:content="configuration.value"/>      
       <dt>Create Date</dt><dd tal:content="configuration.create_date"/>
       <dt>Update Date</dt><dd tal:content="configuration.update_date"/>
     </dl>

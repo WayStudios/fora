@@ -39,11 +39,11 @@ class User(object):
             return self.model.password
         self.model.password = new_password
     def is_active(self, new_is_active = None):
-        if not new_is_active:
+        if new_is_active == None:
             return self.model.is_active
         self.model.is_active = new_is_active
     def is_deleted(self, new_is_deleted = None):
-        if not new_is_deleted:
+        if new_is_deleted == None:
             return self.model.is_deleted
         self.model.is_deleted = new_is_deleted
     def create_date(self, new_create_date = None):

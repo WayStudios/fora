@@ -3,6 +3,14 @@
   </metal:content>
   <metal:content fill-slot="content">
     <h2 class="page-header">Create Topic</h2>
+    <form id="form-create-topic" class="form-horizontal">
+      <div class="form-group">
+        <label for="input-subject" class="col-sm-2 control-label">Subject</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="input-username" placeholder="Username" i18n:attributes="placeholder username" required>
+        </div>
+      </div>
+    </form>
   </metal:content>
   <metal:extra fill-slot="extra">
     <script>

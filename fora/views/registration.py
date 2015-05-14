@@ -6,6 +6,10 @@ from fora.core.user import User
 
 from pyramid.renderers import render_to_response
 
+from pyramid.httpexceptions import (
+    HTTPFound
+)
+
 class RegistrationView(View):
     """ This class contains the registration view of fora.
     """
@@ -29,4 +33,6 @@ class RegistrationView(View):
                                            value = value,
                                            request = self.request)
     def prepare_template(self):
+        if not self.user.is_guest():
+            self.exception = HTTPFound(self.request.route_url("portal"))
         super(RegistrationView, self).prepare_template()

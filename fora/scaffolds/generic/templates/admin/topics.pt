@@ -32,7 +32,7 @@
             edit: false
           },
           actions: {
-            create: false,
+            create: true,
             view: true,
             edit: true,
             delete: true

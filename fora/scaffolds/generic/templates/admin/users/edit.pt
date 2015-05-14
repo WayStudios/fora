@@ -37,6 +37,12 @@
           <input type="password" class="form-control" id="input-confirm-password" placeholder="Confirm password" i18n:attributes="placeholder confirm_password" required>
         </div>
       </div>
+      <div class="form-group">
+        <label for="checkbox-is-active" class="col-sm-2 control-label">Active</label>
+        <div class="col-sm-10">
+          <input type="checkbox" class="form-control" id="checkbox-is-active" tal:attributes="checked user.is_active" required>
+        </div>
+      </div>
     </form>
     <div id="alert-edit-user-username-exists" class="alert alert-danger" role="alert" i18n:translate="username_exists">Username exists</div>
     <div id="alert-edit-user-email-address-exists" class="alert alert-danger" role="alert" i18n:translate="email_address_exists">E-Mail address exists</div>
@@ -54,6 +60,7 @@
           var emailAddress = $("#input-email-address").val();
           var password = $("#input-password").val();
           var confirmPassword = $("#input-confirm-password").val();
+          var isActive = $("#checkbox-is-active").prop("checked");
 
           if (password != confirmPassword) {
             $(".alert").hide();
@@ -63,7 +70,8 @@
             var json = {
               uuid: "${user.uuid}",
               username: username,
-              email_address: emailAddress
+              email_address: emailAddress,
+              is_active: isActive
             };
             if (password !== "") {
               json['password'] = password;

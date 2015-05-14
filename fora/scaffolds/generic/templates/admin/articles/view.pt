@@ -6,7 +6,13 @@
     <dl>
       <dt>UUID</dt><dd tal:content="article.uuid"/>
       <dt>Title</dt><dd tal:content="article.title"/>
+      <dt>Description</dt><dd tal:content="article.description"/>
       <dt>Content</dt><dd tal:content="article.content"/>
+      <dt>Is Active</dt>
+      <dd>
+        <span class="text-success" tal:condition="article.is_active == True">TRUE</span>
+        <span class="text-danger" tal:condition="article.is_active == False">FALSE</span>
+      </dd>
       <dt>Create Date</dt><dd tal:content="article.create_date"/>
       <dt>Update Date</dt><dd tal:content="article.update_date"/>
     </dl>

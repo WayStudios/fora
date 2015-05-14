@@ -24,15 +24,24 @@
             "create_date",
             "update_date"
           ],
+          modals: {
+            create: false,
+            view: false,
+            edit: false,
+            delete: true
+          },
           actions: {
             create: true,
-            view: false,
+            view: true,
             edit: true,
             delete: true
           },
           uri: {
             retrieveEntries: "?action=retrieve_sites",
             retrieveEntry: "?action=retrieve_site",
+            viewEntry: "sites/view/{identity}",
+            createEntry: "sites/create/",
+            editEntry: "sites/edit/{identity}",
             deleteEntry: "?action=delete_site"
           }
         });

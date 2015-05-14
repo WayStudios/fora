@@ -42,11 +42,11 @@ class Topic(object):
             return self.model.initial_thread
         self.model.initial_thread = new_initial_thread
     def is_archived(self, new_is_archived = None):
-        if not new_is_archived:
+        if new_is_archived == None:
             return self.model.is_archived
         self.model.is_archived = new_is_archived
     def is_deleted(self, new_is_deleted = None):
-        if not new_is_deleted:
+        if new_is_deleted == None:
             return self.model.is_deleted
         self.model.is_deleted = new_is_deleted
     def create_date(self, new_create_date = None):

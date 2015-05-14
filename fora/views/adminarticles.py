@@ -32,7 +32,9 @@ class AdminArticlesView(AdminView):
                 self.value['article'] = {
                     'uuid': article.uuid(),
                     'title': article.title(),
+                    'description': article.description(),
                     'content': article.content(),
+                    'is_active': article.is_active(),
                     'create_date': article.create_date().strftime('%Y-%m-%d %H:%M:%S'),
                     'update_date': article.update_date().strftime('%Y-%m-%d %H:%M:%S')
                 }
@@ -40,6 +42,16 @@ class AdminArticlesView(AdminView):
             elif self.activity == 'create':
                 self.template = '%(path)s/articles/create.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'edit':
+                article = Article.get_article_by_uuid(self.identity)
+                self.value['article'] = {
+                    'uuid': article.uuid(),
+                    'title': article.title(),
+                    'content': article.content(),
+                    'description': article.description(),
+                    'is_active': article.is_active(),
+                    'create_date': article.create_date().strftime('%Y-%m-%d %H:%M:%S'),
+                    'update_date': article.update_date().strftime('%Y-%m-%d %H:%M:%S')
+                }
                 self.template = '%(path)s/articles/edit.pt' % {'path': AdminView.path['templates']}
         else:
             self.exception = HTTPFound(self.request.route_url("admin_portal"))
@@ -55,6 +67,7 @@ class AdminArticlesView(AdminView):
                 'identity': articles[id].uuid(),
                 'id': articles[id].id(),
                 'title': articles[id].title(),
+                'is_active': articles[id].is_active(),
                 'create_date': articles[id].create_date().strftime('%Y-%m-%d %H:%M:%S'),
                 'update_date': articles[id].update_date().strftime('%Y-%m-%d %H:%M:%S')
             })

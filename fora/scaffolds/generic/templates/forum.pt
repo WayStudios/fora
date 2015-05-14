@@ -1,4 +1,18 @@
 <metal:main use-macro="load: layout.pt" i18n:domain="fora">
+  <metal:style fill-slot="style">
+    <style>
+      #list-forum {
+        display: none;
+      }
+      #list-topic {
+        display: none;
+      }
+      #alert-list-topic-empty {
+        text-align: center;
+        display: none;
+      }
+    </style>
+  </metal:style>
   <metal:content fill-slot="content">
     <!-- Breadcrumb -->
     <div id="container-breadcrumb" class="container">
@@ -8,21 +22,25 @@
       </ol>
     </div>
 
-    <div id="panel-topics" class="panel panel-default">
+    <div id="panel-forum" class="panel panel-default">
       <!-- Default panel contents -->
       <div class="panel-heading">
-        <h3 class="panel-title" i18n:translate="topics_panel_title">Forum <span tal:replace='forum.title' i18n:name='forum_title'/></h3>
+        <h3 class="panel-title" i18n:translate="forum_panel_title">Forum <span tal:replace='forum.title' i18n:name='forum_title'/></h3>
       </div>
 
       <div class="panel-body">
-        <p>${forum.description}</p>
+        <span>${forum.description}</span>
       </div>
 
       <!-- List group -->
+      <div id="list-forum" class="list-group"></div>
       <div id="list-topic" class="list-group"></div>
 
+      <!-- Alert -->
+      <div id="alert-list-topic-empty" class="alert alert-info" role="alert"><i class="fa fa-compass fa-5x fa-spin"></i><p i18n:translate="list_topic_empty">Nothing here...</p></div>
+
       <div class="panel-footer">
-        <span i18n:translate="topics_panel_footer_message">Come back for more!</span>
+        <span i18n:translate="forum_panel_footer_message">Come back for more!</span>
       </div>
     </div>
 

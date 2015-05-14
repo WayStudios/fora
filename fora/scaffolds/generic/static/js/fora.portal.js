@@ -14,13 +14,16 @@ $(document).ready(function() {
     }),
     contentType: 'application/json; charaset=utf-8',
     success: function(data) {
-      if (data.status) {
+      if (data.status && data.length > 0) {
         var list = $("#panel-forums > #list-forum");
         for (var uuid in data.entries) {
           var entry = data.entries[uuid];
           var html = htmlListForumItem(entry);
           list.append(html);
         }
+        list.show();
+      } else {
+        $("#alert-list-forum-empty").show();
       }
     }
   });

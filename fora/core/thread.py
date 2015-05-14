@@ -37,15 +37,15 @@ class Thread(object):
             return self.model.content
         self.model.content = new_content
     def is_anonymous(self, new_is_anonymous = None):
-        if not new_is_anonymous:
+        if new_is_anonymous == None:
             return self.model.is_anonymous
         self.model.is_anonymous = new_is_anonymous
     def is_archived(self, new_is_archived = None):
-        if not new_is_archived:
+        if new_is_archived == None:
             return self.model.is_archived
         self.model.is_archived = new_is_archived
     def is_deleted(self, new_is_deleted = None):
-        if not new_is_deleted:
+        if new_is_deleted == None:
             return self.model.is_deleted
         self.model.is_deleted = new_is_deleted
     def create_date(self, new_create_date = None):

@@ -120,6 +120,7 @@ class AdminUsersView(AdminView):
             user = User.get_user_by_uuid(self.json['uuid'])
             user.username(self.json['username'])
             user.email_address(self.json['email_address'])
+            user.is_active(self.json['is_active'])
             if 'password' in self.json:
                 if self.json['password'] != '':
                     user.password(self.json['password'])

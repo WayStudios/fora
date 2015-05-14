@@ -61,7 +61,7 @@ def main(argv=sys.argv):
         DBSession.add(moderator_fora_admin)
         site_fora_demo = SiteModel(uuid = site_uuid, title = 'fora', is_active = True, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(site_fora_demo)
-        forum_fora_demo = ForumModel(uuid = forum_uuid, title = 'Demo', description = 'A demo forum', is_active = True, is_deleted = False, create_date = datetime.utcnow(), update_date = datetime.utcnow())
+        forum_fora_demo = ForumModel(uuid = forum_uuid, parent = '', title = 'Demo', description = 'A demo forum', is_active = True, is_deleted = False, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(forum_fora_demo)
         article_fora_about = ArticleModel(uuid = str(uuid.uuid4()), title = 'About', description = 'CMS about page', content = 'This is the about page.', is_active = True, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(article_fora_about)

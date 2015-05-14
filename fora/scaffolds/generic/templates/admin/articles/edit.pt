@@ -3,6 +3,33 @@
   </metal:content>
   <metal:content fill-slot="content">
     <h2 class="page-header">Edit Article</h2>
+    <form id="form-edit-article" class="form-horizontal">
+      <div class="form-group">
+        <label for="input-title" class="col-sm-2 control-label">Title</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="input-title" placeholder="Title" i18n:attributes="placeholder title" value="${article.title}" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="textarea-description" class="col-sm-2 control-label">description</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" id="textarea-description" placeholder="Description" i18n:attributes="placeholder description" required>${article.description}</textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="textarea-content" class="col-sm-2 control-label">Content</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" id="textarea-content" placeholder="Content" i18n:attributes="placeholder content" required>${article.content}</textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="checkbox-is-active" class="col-sm-2 control-label">Active</label>
+        <div class="col-sm-10">
+          <input type="checkbox" class="form-control" id="checkbox-is-active" tal:attributes="checked article.is_active" required>
+        </div>
+      </div>
+    </form>
+    <button id="submit-form-edit-article" type="button" class="btn btn-primary" i18n:translate="submit">Submit</button>
   </metal:content>
   <metal:extra fill-slot="extra">
     <script>

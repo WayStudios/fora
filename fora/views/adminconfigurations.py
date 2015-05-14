@@ -22,13 +22,31 @@ class AdminConfigurationsView(AdminView):
                                                           'retrieve_configuration': self.retrieve_configuration,
                                                           'delete_configuration': self.delete_configuration
                                                       })
+        if 'identity' in request.matchdict:
+            self.identity = request.matchdict['identity']
     def prepare_template(self):
         if not self.moderator.is_guest():
             if self.activity == 'view':
+                configuration = Configuration.get_configuration_by_uuid(self.identity)
+                self.value['configuration'] = {
+                    'uuid': configuration.uuid(),
+                    'type': configuration.type(),
+                    'name': configuration.name(),
+                    'value': configuration.value(),
+                    'create_date': configuration.create_date().strftime('%Y-%m-%d %H:%M:%S'),
+                    'update_date': configuration.update_date().strftime('%Y-%m-%d %H:%M:%S')
+                }
                 self.template = '%(path)s/configurations/view.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'create':
                 self.template = '%(path)s/configurations/create.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'edit':
+                configuration = Configuration.get_configuration_by_uuid(self.identity)
+                self.value['configuration'] = {
+                    'uuid': configuration.uuid(),
+                    'type': configuration.type(),
+                    'name': configuration.name(),
+                    'value': configuration.value()
+                }
                 self.template = '%(path)s/configurations/edit.pt' % {'path': AdminView.path['templates']}
         else:
             self.exception = HTTPFound(self.request.route_url("admin_portal"))
@@ -41,6 +59,7 @@ class AdminConfigurationsView(AdminView):
         configurations = Configuration.get_configurations()
         for id in configurations:
             value['entries'].append({
+                'identity': configurations[id].uuid(),
                 'id': configurations[id].id(),
                 'type': configurations[id].type(),
                 'name': configurations[id].name(),

@@ -23,6 +23,10 @@ class Forum(object):
         if not new_uuid:
             return self.model.uuid
         self.model.uuid = new_uuid
+    def parent(self, new_parent = None):
+        if new_parent == None:
+            return self.model.parent
+        self.model.parent = new_parent
     def title(self, new_title = None):
         if not new_title:
             return self.model.title
@@ -32,11 +36,11 @@ class Forum(object):
             return self.model.description
         self.model.description = new_description
     def is_active(self, new_is_active = None):
-        if not new_is_active:
+        if new_is_active == None:
             return self.model.is_active
         self.model.is_active = new_is_active
     def is_deleted(self, new_is_deleted = None):
-        if not new_is_deleted:
+        if new_is_deleted == None:
             return self.model.is_deleted
         self.model.is_deleted = new_is_deleted
     def create_date(self, new_create_date = None):
@@ -48,8 +52,8 @@ class Forum(object):
             return self.model.update_date
         self.model.update_date = new_update_date
     @staticmethod
-    def create_forum(title, description, is_active = True, is_deleted = False):
-        result = ForumModel(uuid = str(uuid.uuid4()), title = title, description = description, is_active = is_active, is_deleted = is_deleted, create_date = datetime.utcnow(), update_date = datetime.utcnow())
+    def create_forum(title, description, parent = '', is_active = True, is_deleted = False):
+        result = ForumModel(uuid = str(uuid.uuid4()), title = title, description = description, parent = parent, is_active = is_active, is_deleted = is_deleted, create_date = datetime.utcnow(), update_date = datetime.utcnow())
         DBSession.add(result)
         obj = Forum()
         obj.model = result
@@ -74,6 +78,14 @@ class Forum(object):
         obj = Forum()
         obj.model = result
         return obj
+    @staticmethod
+    def get_forums_by_parent(parent):
+        results = DBSession.query(ForumModel).filter(ForumModel.parent == parent).all()
+        objs = {}
+        for result in results:
+            objs[result.id] = Forum()
+            objs[result.id].model = result
+        return objs
     @staticmethod
     def get_forums():
         results = DBSession.query(ForumModel).all()

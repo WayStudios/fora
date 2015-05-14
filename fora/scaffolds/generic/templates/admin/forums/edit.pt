@@ -1,50 +1,50 @@
 <metal:main use-macro="load: ../layout.pt">
   <metal:content fill-slot="style">
     <style>
-      #alert-create-forum-unknow-issue {
+      #alert-edit-forum-unknow-issue {
         display: none;
       }
     </style>
   </metal:content>
   <metal:content fill-slot="content">
-    <h2 class="page-header">Create Forum</h2>
-    <form id="form-create-forum" class="form-horizontal">
+    <h2 class="page-header">Edit Forum</h2>
+    <form id="form-edit-forum" class="form-horizontal">
       <div class="form-group">
         <label for="select-parent" class="col-sm-2 control-label">Parent</label>
         <div class="col-sm-10">
           <select class="form-control" id="select-parent" required>
-            <option value="">None</option>
-            <option tal:repeat="id forums" tal:attributes="value forums[id].uuid" tal:content="forums[id].title"/>
+            <option value="" tal:attributes="selected forum.parent == ''">None</option>
+            <option tal:repeat="id forums" tal:attributes="value forums[id].uuid;selected forum.parent == forums[id].uuid" tal:content="forums[id].title"/>
           </select>
         </div>
       </div>
       <div class="form-group">
         <label for="input-title" class="col-sm-2 control-label">Title</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="input-title" placeholder="Title" i18n:attributes="placeholder title" required>
+          <input type="text" class="form-control" id="input-title" placeholder="Title" i18n:attributes="placeholder title" value="${forum.title}" required>
         </div>
       </div>
       <div class="form-group">
         <label for="textarea-description" class="col-sm-2 control-label">description</label>
         <div class="col-sm-10">
-          <textarea class="form-control" id="textarea-description" placeholder="Description" i18n:attributes="placeholder description" required></textarea>
+          <textarea class="form-control" id="textarea-description" placeholder="Description" i18n:attributes="placeholder description" required>${forum.description}</textarea>
         </div>
       </div>
       <div class="form-group">
         <label for="checkbox-is-active" class="col-sm-2 control-label">Active</label>
         <div class="col-sm-10">
-          <input type="checkbox" class="form-control" id="checkbox-is-active" required>
+          <input type="checkbox" class="form-control" id="checkbox-is-active" tal:attributes="checked forum.is_active" required>
         </div>
       </div>
     </form>
-    <div id="alert-create-forum-unknow-issue" class="alert alert-danger" role="alert" i18n:translate="unknow_issue">Unknow issue</div>
-    <button id="submit-form-create-forum" type="button" class="btn btn-primary" i18n:translate="submit">Submit</button>
+    <div id="alert-edit-forum-unknow-issue" class="alert alert-danger" role="alert" i18n:translate="unknow_issue">Unknow issue</div>
+    <button id="submit-form-edit-forum" type="button" class="btn btn-primary" i18n:translate="submit">Submit</button>
   </metal:content>
   <metal:extra fill-slot="extra">
     <script>
       $(document).ready(function() {
         $("#nav-forums").addClass("active");
-        $("#submit-form-create-forum").click(function( event ) {
+        $("#submit-form-edit-forum").click(function(event) {
           event.preventDefault();
           var parent = $("#select-parent").val();
           var title = $("#input-title").val();
@@ -53,13 +53,14 @@
 
           $(".alert").hide();
           var json = {
+            uuid: "${forum.uuid}",
             parent: parent,
             title: title,
             description: description,
             is_active: isActive
           };
           $.ajax({
-            url: "${request.application_url}/admin/forums?action=create_forum",
+            url: "${request.application_url}/admin/forums?action=edit_forum",
             type: "POST",
             data: JSON.stringify(json),
             contentType: "application/json; charaset=utf-8",

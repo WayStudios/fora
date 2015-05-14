@@ -23,6 +23,7 @@ class ForumView(View):
         super(ForumView, self).__init__(request = request,
                                         template = template,
                                         actions = {
+                                            'retrieve_forums': self.retrieve_forums,
                                             'retrieve_topics': self.retrieve_topics,
                                             'create_topic': self.create_topic,
                                             'delete_topic': self.delete_topic
@@ -40,9 +41,28 @@ class ForumView(View):
                 'description': forum.description()
             }
         super(ForumView, self).prepare_template()
+    def retrieve_forums(self):
+        value = {
+            'status': True,
+            'length': 0,
+            'entries': {}
+        }
+        forums = Forum.get_forums_by_parent(parent = self.value['identity'])
+        for id in forums:
+            if forums[id].is_active() and not forums[id].is_deleted():
+                value['entries'][id] = {
+                    'uuid': forums[id].uuid(),
+                    'title': forums[id].title(),
+                    'description': forums[id].description()
+                }
+                value['length'] += 1
+        self.response = render_to_response(renderer_name = 'json',
+                                           value = value,
+                                           request = self.request)
     def retrieve_topics(self):
         value = {
             'status': True,
+            'length': 0,
             'entries': {}
         }
         forum = Forum.get_forum_by_uuid(uuid = self.value['identity'])
@@ -57,6 +77,7 @@ class ForumView(View):
                     'subject': thread.subject()
                 }
             }
+            value['length'] += 1
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,
                                            request = self.request)

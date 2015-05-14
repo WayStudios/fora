@@ -1,0 +1,32 @@
+<metal:main use-macro="load: ../layout.pt">
+  <metal:content fill-slot="style">
+  </metal:content>
+  <metal:content fill-slot="content">
+    <h2 class="page-header">View Forum</h2>
+    <dl>
+      <dt>UUID</dt><dd tal:content="forum.uuid"/>
+      <dt>Parent</dt><dd tal:content="forum.parent"/>
+      <dt>Title</dt><dd tal:content="forum.title"/>
+      <dt>Description</dt><dd tal:content="forum.description"/>
+      <dt>Is Active</dt>
+      <dd>
+        <span class="text-success" tal:condition="forum.is_active == True">TRUE</span>
+        <span class="text-danger" tal:condition="forum.is_active == False">FALSE</span>
+      </dd>
+      <dt>Is Deleted</dt>
+      <dd>
+        <span class="text-success" tal:condition="forum.is_deleted == True">TRUE</span>
+        <span class="text-danger" tal:condition="forum.is_deleted == False">FALSE</span>
+      </dd>
+      <dt>Create Date</dt><dd tal:content="forum.create_date"/>
+      <dt>Update Date</dt><dd tal:content="forum.update_date"/>
+    </dl>
+  </metal:content>
+  <metal:extra fill-slot="extra">
+    <script>
+      $(document).ready(function() {
+        $("#nav-forums").addClass("active");
+      });
+    </script>
+  </metal:extra>
+</metal:main>

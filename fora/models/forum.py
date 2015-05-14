@@ -15,6 +15,7 @@ class ForumModel(Model):
     __tablename__ = 'forums'
     id = Column(Integer, primary_key = True, autoincrement = True)
     uuid = Column(String, unique = True)
+    parent = Column(String)
     title = Column(String)
     description = Column(String)
     is_active = Column(Boolean)

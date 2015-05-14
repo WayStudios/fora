@@ -20,20 +20,30 @@
           columns: [
             "id",
             "title",
+            "parent",
             "is_active",
             "is_deleted",
             "create_date",
             "update_date"
           ],
+          modals: {
+            create: false,
+            view: false,
+            edit: false,
+            delete: true
+          },
           actions: {
             create: true,
-            view: false,
+            view: true,
             edit: true,
             delete: true
           },
           uri: {
             retrieveEntries: "?action=retrieve_forums",
             retrieveEntry: "?action=retrieve_forum",
+            viewEntry: "forums/view/{identity}",
+            createEntry: "forums/create/",
+            editEntry: "forums/edit/{identity}",
             deleteEntry: "?action=delete_forum"
           }
         });

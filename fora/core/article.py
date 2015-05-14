@@ -30,7 +30,7 @@ class Article(object):
             return self.model.content
         self.model.content = new_content
     def is_active(self, new_is_active = None):
-        if not new_is_active:
+        if new_is_active == None:
             return self.model.is_active
         self.model.is_active = new_is_active
     def create_date(self, new_create_date = None):

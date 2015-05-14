@@ -22,13 +22,29 @@ class AdminSitesView(AdminView):
                                                  'retrieve_site': self.retrieve_site,
                                                  'delete_site': self.delete_site
                                              })
+        if 'identity' in request.matchdict:
+            self.identity = request.matchdict['identity']
     def prepare_template(self):
         if not self.moderator.is_guest():
             if self.activity == 'view':
+                site = Site.get_site_by_uuid(self.identity)
+                self.value['site'] = {
+                    'uuid': site.uuid(),
+                    'title': site.title(),
+                    'is_active': site.is_active(),
+                    'create_date': site.create_date().strftime('%Y-%m-%d %H:%M:%S'),
+                    'update_date': site.update_date().strftime('%Y-%m-%d %H:%M:%S')
+                }
                 self.template = '%(path)s/sites/view.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'create':
                 self.template = '%(path)s/sites/create.pt' % {'path': AdminView.path['templates']}
             elif self.activity == 'edit':
+                site = Site.get_site_by_uuid(self.identity)
+                self.value['site'] = {
+                    'uuid': site.uuid(),
+                    'title': site.title(),
+                    'is_active': site.is_active()
+                }
                 self.template = '%(path)s/sites/edit.pt' % {'path': AdminView.path['templates']}
         else:
             self.exception = HTTPFound(self.request.route_url("admin_portal"))
@@ -41,6 +57,7 @@ class AdminSitesView(AdminView):
         sites = Site.get_sites()
         for id in sites:
             value['entries'].append({
+                'identity': sites[id].uuid(),
                 'id': sites[id].id(),
                 'title': sites[id].title(),
                 'is_active': sites[id].is_active(),

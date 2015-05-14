@@ -4,6 +4,13 @@
   <metal:content fill-slot="content">
     <h2 class="page-header">View Site</h2>
     <dl>
+      <dt>UUID</dt><dd tal:content="site.uuid"/>
+      <dt>Title</dt><dd tal:content="site.title"/>
+      <dt>Is Active</dt>
+      <dd>
+        <span class="text-success" tal:condition="site.is_active == True">TRUE</span>
+        <span class="text-danger" tal:condition="site.is_active == False">FALSE</span>
+      </dd>
       <dt>Create Date</dt><dd tal:content="site.create_date"/>
       <dt>Update Date</dt><dd tal:content="site.update_date"/>
     </dl>

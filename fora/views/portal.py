@@ -21,15 +21,18 @@ class PortalView(View):
     def retrieve_forums(self):
         value = {
             'status': True,
+            'length': 0,
             'entries': {}
         }
         forums = Forum.get_forums()
         for id in forums:
-            value['entries'][id] = {
-                'uuid': forums[id].uuid(),
-                'title': forums[id].title(),
-                'description': forums[id].description()
-            }
+            if forums[id].parent() == '' and forums[id].is_active() and not forums[id].is_deleted():
+                value['entries'][id] = {
+                    'uuid': forums[id].uuid(),
+                    'title': forums[id].title(),
+                    'description': forums[id].description()
+                }
+                value['length'] += 1
         self.response = render_to_response(renderer_name = 'json',
                                            value = value,
                                            request = self.request)

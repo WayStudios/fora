@@ -38,6 +38,14 @@ class Configuration(object):
             return self.model.update_date
         self.model.update_date = new_update_date
     @staticmethod
+    def get_configuration_by_uuid(uuid):
+        result = DBSession.query(ConfigurationModel).filter(ConfigurationModel.uuid == uuid).first()
+        if result:
+            obj = Configuration()
+            obj.model = result
+            return obj
+        return None
+    @staticmethod
     def get_configuration_by_name(name):
         result = DBSession.query(ConfigurationModel).filter(ConfigurationModel.name == name).first()
         if result:

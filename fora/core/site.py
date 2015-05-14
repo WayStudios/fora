@@ -24,7 +24,7 @@ class Site(object):
             return self.model.title
         self.model.title = new_title
     def is_active(self, new_is_active = None):
-        if not new_is_active:
+        if new_is_active == None:
             return self.model.is_active
         self.model.is_active = new_is_active
     def create_date(self, new_create_date = None):
@@ -35,6 +35,14 @@ class Site(object):
         if not new_update_date:
             return self.model.update_date
         self.model.update_date = new_update_date
+    @staticmethod
+    def get_site_by_uuid(uuid):
+        result = DBSession.query(SiteModel).filter(SiteModel.uuid == uuid).first()
+        if result:
+            obj = Site()
+            obj.model = result
+            return obj
+        return None
     @staticmethod
     def get_sites():
         results = DBSession.query(SiteModel).all()
